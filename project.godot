@@ -11,9 +11,26 @@ config_version=5
 [application]
 
 config/name="Learn To Roar"
-config/features=PackedStringArray("4.2", "Forward Plus")
+run/main_scene="res://Scenes/main.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [dotnet]
 
 project/assembly_name="Learn To Roar"
+
+[layer_names]
+
+2d_physics/layer_1="Border"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Bullets"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
