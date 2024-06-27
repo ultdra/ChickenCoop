@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn To Roar", "Learn To Roar.csproj", "{AFD4A6D6-4ED0-4F74-A380-00422F7CD565}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFD4A6D6-4ED0-4F74-A380-00422F7CD565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD4A6D6-4ED0-4F74-A380-00422F7CD565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD4A6D6-4ED0-4F74-A380-00422F7CD565}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{AFD4A6D6-4ED0-4F74-A380-00422F7CD565}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{AFD4A6D6-4ED0-4F74-A380-00422F7CD565}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{AFD4A6D6-4ED0-4F74-A380-00422F7CD565}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
