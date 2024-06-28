@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bonym37hlpu23"]
+[gd_scene load_steps=4 format=3 uid="uid://bonym37hlpu23"]
 
 [ext_resource type="PackedScene" uid="uid://ytft2eomjh57" path="res://Components/level.tscn" id="1_wq3we"]
 [ext_resource type="PackedScene" uid="uid://dap5grwpnee7j" path="res://Components/player.tscn" id="2_oj7nm"]
+[ext_resource type="PackedScene" uid="uid://bw1io7kf6pluv" path="res://bird.tscn" id="3_bd2yf"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Level" parent="." instance=ExtResource("1_wq3we")]
 
 [node name="Player" parent="." instance=ExtResource("2_oj7nm")]
+scale = Vector2(4, 4)
+
+[node name="Bird" parent="." instance=ExtResource("3_bd2yf")]
 scale = Vector2(4, 4)
