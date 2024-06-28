@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://bw1io7kf6pluv"]
+
+[ext_resource type="Texture2D" uid="uid://c5dxl5mt1do87" path="res://Art/chicken default.png" id="1_sjqod"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qf554"]
+atlas = ExtResource("1_sjqod")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21ybe"]
+atlas = ExtResource("1_sjqod")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2n7qd"]
+atlas = ExtResource("1_sjqod")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qtse"]
+atlas = ExtResource("1_sjqod")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ll7ce"]
+atlas = ExtResource("1_sjqod")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_647vx"]
+atlas = ExtResource("1_sjqod")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjypf"]
+atlas = ExtResource("1_sjqod")
+region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wb5t"]
+atlas = ExtResource("1_sjqod")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_egxu7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qf554")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21ybe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2n7qd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qtse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ll7ce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_647vx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjypf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wb5t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ousja"]
+radius = 7.0
+height = 18.0
+
+[node name="Bird" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_egxu7")
+frame_progress = 0.942355
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ousja")
