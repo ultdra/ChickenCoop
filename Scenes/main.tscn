@@ -10,6 +10,7 @@
 
 [node name="Player" parent="." instance=ExtResource("2_oj7nm")]
 scale = Vector2(4, 4)
+Speed = 500
 
 [node name="Bird" parent="." instance=ExtResource("3_bd2yf")]
 position = Vector2(502, 486)

@@ -44,9 +44,6 @@ public partial class bird : Area2D
 		// Ensure playerNode is not null
 		if (birdOwner != null)
 		{
-			// Notify that player has a new unit tagging along
-			birdOwner.NotifyNewBird(this);
-
 			// Adjust the path according to the actual hierarchy
 			playerBirdLoiterArea = birdOwner.GetNode<Area2D>("BirdLoiterArea"); // Use "ChildNode/BirdLoiterArea" if nested
 
@@ -72,21 +69,19 @@ public partial class bird : Area2D
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		switch(birdState)
 		{
 			case BirdState.Idle:
 				break;
 
-			case BirdState.ApproachOwner:
-				if (birdOwner != null)
-				{
-					Vector2 direction = birdOwner.GlobalPosition - GlobalPosition;
-					direction = direction.Normalized();
-					velocity = direction * Speed;
-					GlobalPosition += velocity * (float)delta;
-				}
+			case BirdState.ApproachOwner :
+				FollowOwner((float)delta);
+				break;
+			
+			case BirdState.FollowOwner:
+				FollowOwner((float)delta);
 				break;
 
 			case BirdState.Loiter:
@@ -103,13 +98,23 @@ public partial class bird : Area2D
 		}
 	}
 
-
+#region Area2D Signals
 	public void OnPlayerAreaEntered(Area2D area)
 	{
 		if (area == this) // Check if the entered area is this bird
 		{
 			GD.Print("Bird has entered the player's area");
-			// Implement your logic here
+
+			if(birdState == BirdState.ApproachOwner)
+			{
+				// Notify that player has a new unit tagging along
+				birdOwner.NotifyNewBird(this);
+			}
+
+
+			// We then can begin to loiter
+			birdState = BirdState.Loiter;
+			
 		}
 	}
 
@@ -118,8 +123,27 @@ public partial class bird : Area2D
 		if (area == this) // Check if the exited area is this bird
 		{
 			GD.Print("Bird has exited the player's area");
-			// Implement your logic here
+			
+			if(birdState == BirdState.Loiter)
+			{
+				birdState = BirdState.FollowOwner;
+			}
 		}
 	}
+#endregion
+
+#region Private Manipulators
+	private void FollowOwner(float delta)
+	{
+		if (birdOwner != null)
+		{
+			Vector2 direction = birdOwner.GlobalPosition - GlobalPosition;
+			direction = direction.Normalized();
+			velocity = direction * Speed;
+			GlobalPosition += velocity * delta;
+		}
+	}
+
+#endregion
 
 }
