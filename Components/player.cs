@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 public partial class player : CharacterBody2D
 {
 	[Export]
@@ -9,9 +10,12 @@ public partial class player : CharacterBody2D
 
 	private AnimatedSprite2D AnimatedSprite;
 
+	private List<bird> Birds = new List<bird>();
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		
 		ScreenSize = GetViewportRect().Size;
 		Position = ScreenSize/2;
 

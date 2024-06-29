@@ -1,7 +1,8 @@
-[gd_scene load_steps=45 format=3 uid="uid://dap5grwpnee7j"]
+[gd_scene load_steps=46 format=3 uid="uid://dap5grwpnee7j"]
 
 [ext_resource type="Texture2D" uid="uid://ca4e2o0n88mub" path="res://Art/Premium Charakter Spritesheet.png" id="1_c81ii"]
 [ext_resource type="Script" path="res://Components/player.cs" id="1_eepv5"]
+[ext_resource type="PackedScene" uid="uid://c3u748ulkcrs8" path="res://Components/bird_loiter_area.tscn" id="3_8fbfc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qjxd2"]
 atlas = ExtResource("1_c81ii")
@@ -328,3 +329,6 @@ frame_progress = 0.187582
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_7q4c0")
+
+[node name="BirdLoiterArea" parent="." instance=ExtResource("3_8fbfc")]
+scale = Vector2(7, 7)
