@@ -59,4 +59,14 @@ public partial class player : CharacterBody2D
 		}
     }
 
+
+#region Public Manipulators
+
+	public void NotifyNewBird(bird bird)
+	{
+		Birds.Add(bird);
+	}
+
+#endregion
+
 }

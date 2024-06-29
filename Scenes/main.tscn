@@ -14,3 +14,4 @@ scale = Vector2(4, 4)
 [node name="Bird" parent="." instance=ExtResource("3_bd2yf")]
 position = Vector2(502, 486)
 scale = Vector2(4, 4)
+Speed = 250.0
