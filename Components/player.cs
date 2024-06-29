@@ -12,6 +12,29 @@ public partial class player : CharacterBody2D
 
 	private List<bird> Birds = new List<bird>();
 
+	// Player state
+	private PlayerState playerState = PlayerState.Idle;
+	private PlayerState previousPlayerState = PlayerState.None;
+
+
+	#region Signals
+
+	[Signal]
+	public delegate void PlayerIdleEventHandler();
+
+	[Signal]
+	public delegate void PlayerRunningEventHandler();
+
+	[Signal]
+	public delegate void PlayerDeadEventHandler();
+
+	#endregion
+
+
+	#region Acessors
+	public PlayerState CurrentPlayerState {get { return playerState;}}
+	#endregion
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -27,14 +50,44 @@ public partial class player : CharacterBody2D
 	{
 		Vector2 inputDirection = Input.GetVector("Left", "Right", "Up", "Down");
 		Velocity = inputDirection.Normalized() * Speed;
+
+		if(inputDirection != Vector2.Zero)
+		{
+			playerState = PlayerState.Running;
+		}
+		else
+		{
+			playerState = PlayerState.Idle;
+		}
 	}
 
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
     {
-        // We will first get the input from the player
+
+		// We will first get the input from the player
 		GetInput();
+
+		if(playerState != previousPlayerState)
+		{
+			switch(playerState)
+			{
+				case PlayerState.Idle:
+					EmitSignal(nameof(PlayerIdle));
+				break;
+
+				case PlayerState.Running:
+					EmitSignal(nameof(PlayerRunning));
+				break;
+
+				case PlayerState.Dead:
+					EmitSignal(nameof(PlayerDead));
+				break;
+			}
+			previousPlayerState = playerState;
+		}
+
 		MoveAndSlide();
 
 		// Unused: To limit movement to within the screen.

@@ -51,8 +51,8 @@ public partial class bird : Area2D
 			if (playerBirdLoiterArea != null)
 			{
 				// Your code to work with playerArea2d
-				playerBirdLoiterArea.Connect("area_entered", new Callable(this, nameof(OnPlayerAreaEntered)), (uint)0);
-				playerBirdLoiterArea.Connect("area_exited", new Callable(this, nameof(OnPlayerAreaExited)), (uint)0);
+				playerBirdLoiterArea.Connect("area_entered", new Callable(this, nameof(OnPlayerAreaEntered)), 0);
+				playerBirdLoiterArea.Connect("area_exited", new Callable(this, nameof(OnPlayerAreaExited)), 0);
 
 				birdState = BirdState.ApproachOwner;
 			}
@@ -98,17 +98,19 @@ public partial class bird : Area2D
 		}
 	}
 
-#region Area2D Signals
+#region Signals
 	public void OnPlayerAreaEntered(Area2D area)
 	{
 		if (area == this) // Check if the entered area is this bird
 		{
-			GD.Print("Bird has entered the player's area");
-
 			if(birdState == BirdState.ApproachOwner)
 			{
 				// Notify that player has a new unit tagging along
 				birdOwner.NotifyNewBird(this);
+				birdOwner.Connect(nameof(birdOwner.PlayerIdle), new Callable(this, "OnPlayerIdle"), 0);
+				birdOwner.Connect(nameof(birdOwner.PlayerRunning), new Callable(this, "OnPlayerRunning"),  0);
+				birdOwner.Connect(nameof(birdOwner.PlayerDead), new Callable(this, "OnPlayerDead"), 0);
+
 			}
 
 
@@ -121,15 +123,29 @@ public partial class bird : Area2D
 	public void OnPlayerAreaExited(Area2D area)
 	{
 		if (area == this) // Check if the exited area is this bird
-		{
-			GD.Print("Bird has exited the player's area");
-			
+		{			
 			if(birdState == BirdState.Loiter)
 			{
 				birdState = BirdState.FollowOwner;
 			}
 		}
 	}
+
+	private void OnPlayerIdle()
+	{
+		GD.Print("Player is idle");
+	}
+	
+	private void OnPlayerRunning()
+	{
+		GD.Print("Player is moving");
+	}
+
+	private void OnPlayerDead()
+	{
+		GD.Print("Player is dead");
+	}
+
 #endregion
 
 #region Private Manipulators
@@ -143,6 +159,7 @@ public partial class bird : Area2D
 			GlobalPosition += velocity * delta;
 		}
 	}
+
 
 #endregion
 
