@@ -13,7 +13,7 @@ using System.Collections.Generic;
 		Firing of bullets
 		Player input command's flock behaviour
 */
-public partial class bird : Area2D
+public partial class bird : CharacterBody2D
 {
 	
 	// To add bird settings here
@@ -29,7 +29,6 @@ public partial class bird : Area2D
 	private Vector2 forward;
 
 	// For reference to the player's area
-	private Area2D playerBirdLoiterArea;
 	private player birdOwner;
 
 
@@ -58,22 +57,17 @@ public partial class bird : Area2D
 		// Ensure playerNode is not null
 		if (birdOwner != null)
 		{
-			// Adjust the path according to the actual hierarchy
-			playerBirdLoiterArea = birdOwner.GetNode<Area2D>("BirdLoiterArea"); // Use "ChildNode/BirdLoiterArea" if nested
+			// Notify that player has a new unit tagging along
+			GD.Print("New bird joined the flock!");
+			birdOwner.Connect(nameof(player.PlayerIdle), new Callable(this, "OnPlayerIdle"), 0);
+			birdOwner.Connect(nameof(player.PlayerRunning), new Callable(this, "OnPlayerRunning"), 0);
+			birdOwner.Connect(nameof(player.PlayerDead), new Callable(this, "OnPlayerDead"), 0);
 
-			// Ensure playerArea2d is not null before using it
-			if (playerBirdLoiterArea != null)
-			{
-				// Your code to work with playerArea2d
-				playerBirdLoiterArea.Connect("area_entered", new Callable(this, nameof(OnPlayerAreaEntered)), 0);
-				playerBirdLoiterArea.Connect("area_exited", new Callable(this, nameof(OnPlayerAreaExited)), 0);
+			// Here we will get the number of birds within an area
+			totalNumberOfBirds++;
+			otherBirds.Add(this);
 
-				birdState = BirdState.ApproachOwner;
-			}
-			else
-			{
-				GD.Print("BirdLoiterArea not found");
-			}
+			birdState = BirdState.ApproachOwner;
 		}
 		else
 		{
@@ -113,33 +107,6 @@ public partial class bird : Area2D
 	}
 
 #region Signals
-	public void OnPlayerAreaEntered(Area2D area)
-	{
-		if (area == this) // Check if the entered area is this bird
-		{
-			if(birdState == BirdState.ApproachOwner)
-			{
-				// Notify that player has a new unit tagging along
-
-				birdOwner.Connect(nameof(birdOwner.PlayerIdle), new Callable(this, "OnPlayerIdle"), 0);
-				birdOwner.Connect(nameof(birdOwner.PlayerRunning), new Callable(this, "OnPlayerRunning"),  0);
-				birdOwner.Connect(nameof(birdOwner.PlayerDead), new Callable(this, "OnPlayerDead"), 0);
-
-				// Here we will get the number of birds within an area
-				totalNumberOfBirds++;
-				otherBirds.Add(this);
-			}
-
-		}
-	}
-
-	public void OnPlayerAreaExited(Area2D area)
-	{
-		if (area == this) // Check if the exited area is this bird
-		{			
-			// What we need to do here?
-		}
-	}
 
 	private void OnPlayerIdle()
 	{
@@ -178,9 +145,8 @@ public partial class bird : Area2D
 		if (birdOwner != null)
 		{
 			Vector2 direction = birdOwner.GlobalPosition - GlobalPosition;
-			direction = direction.Normalized();
-			velocity = direction * Speed;
-
+			Velocity = direction.Normalized() * Speed;
+	
 			if(direction.X > 0)
 			{
 				animationController.FlipH = false;
@@ -189,16 +155,20 @@ public partial class bird : Area2D
 			{
 				animationController.FlipH = true;
 			}
-
+	
 			// Check if the distance between the bird and birdOwner is less than a certain distance
 			float distanceThreshold = SocialDistancingFromPlayer; // Set your desired distance threshold here
 			float distance = GlobalPosition.DistanceTo(birdOwner.GlobalPosition);
 			if (distance <= distanceThreshold)
 			{
-				velocity = Vector2.Zero; // Stop moving
+				Velocity = Vector2.Zero; // Stop moving
 			}
-
-			GlobalPosition += velocity * delta;
+	
+			// Move using CharacterBody2D
+			MoveAndSlide(); // Provide a second argument for the floor normal
+			
+			// Update the forward vector
+			forward = direction;
 		}
 	}
 

@@ -100,11 +100,12 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ousja"]
-radius = 7.0
-height = 18.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_d0u3y"]
+radius = 6.0
 
-[node name="Bird" type="Area2D"]
+[node name="Bird" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 31
 script = ExtResource("1_fww1h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -113,4 +114,4 @@ animation = &"Idle"
 frame_progress = 0.419802
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_ousja")
+shape = SubResource("CircleShape2D_d0u3y")

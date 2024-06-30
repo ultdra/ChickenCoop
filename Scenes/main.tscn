@@ -13,16 +13,37 @@ scale = Vector2(4, 4)
 Speed = 500
 
 [node name="Bird" parent="." instance=ExtResource("3_bd2yf")]
-position = Vector2(502, 486)
+position = Vector2(496, 588)
 scale = Vector2(4, 4)
 Speed = 250.0
+SocialDistancingFromPlayer = 100.0
 
 [node name="Bird2" parent="." instance=ExtResource("3_bd2yf")]
-position = Vector2(990, 138)
+position = Vector2(570, 390)
 scale = Vector2(4, 4)
 Speed = 250.0
+SocialDistancingFromPlayer = 100.0
 
 [node name="Bird3" parent="." instance=ExtResource("3_bd2yf")]
-position = Vector2(1546, 486)
+position = Vector2(716, 226)
 scale = Vector2(4, 4)
 Speed = 250.0
+SocialDistancingFromPlayer = 100.0
+
+[node name="Bird4" parent="." instance=ExtResource("3_bd2yf")]
+position = Vector2(1018, 214)
+scale = Vector2(4, 4)
+Speed = 250.0
+SocialDistancingFromPlayer = 100.0
+
+[node name="Bird5" parent="." instance=ExtResource("3_bd2yf")]
+position = Vector2(668, 846)
+scale = Vector2(4, 4)
+Speed = 250.0
+SocialDistancingFromPlayer = 100.0
+
+[node name="Bird6" parent="." instance=ExtResource("3_bd2yf")]
+position = Vector2(1076, 876)
+scale = Vector2(4, 4)
+Speed = 250.0
+SocialDistancingFromPlayer = 100.0
