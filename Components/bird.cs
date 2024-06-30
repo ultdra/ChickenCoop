@@ -110,18 +110,17 @@ public partial class bird : CharacterBody2D
 
 	private void OnPlayerIdle()
 	{
-		GD.Print("Player is idle");
-		animationController.Animation = "Idle";
-		animationController.Play();
-		birdState = BirdState.FollowOwner;
+		// GD.Print("Player is idle");
+
+		if(IsWithinDistanceOfPlayer())
+		{
+			birdState = BirdState.Idle;
+		}
 	}
 	
 	private void OnPlayerRunning()
 	{
-		GD.Print("Player is moving");
-		animationController.Animation = "Run";
-		animationController.Play();
-
+		// GD.Print("Player is moving");
 		birdState = BirdState.FollowOwner;
 	}
 
@@ -156,12 +155,20 @@ public partial class bird : CharacterBody2D
 				animationController.FlipH = true;
 			}
 	
-			// Check if the distance between the bird and birdOwner is less than a certain distance
-			float distanceThreshold = SocialDistancingFromPlayer; // Set your desired distance threshold here
-			float distance = GlobalPosition.DistanceTo(birdOwner.GlobalPosition);
-			if (distance <= distanceThreshold)
+			if (IsWithinDistanceOfPlayer())
 			{
 				Velocity = Vector2.Zero; // Stop moving
+				if(birdState == BirdState.FollowOwner)
+				{
+					animationController.Animation = "Idle";
+					animationController.Play();
+					birdState = BirdState.Idle;
+				}
+			}
+			else
+			{
+				animationController.Animation = "Run";
+				animationController.Play();
 			}
 	
 			// Move using CharacterBody2D
@@ -202,6 +209,13 @@ public partial class bird : CharacterBody2D
 	private void FollowOwnerBehaviour()
 	{
 
+	}
+
+	private bool IsWithinDistanceOfPlayer()
+	{
+		float distanceThreshold = SocialDistancingFromPlayer; // Set your desired distance threshold here
+		float distance = GlobalPosition.DistanceTo(birdOwner.GlobalPosition);
+		return distance <= distanceThreshold;
 	}
 
 #endregion
