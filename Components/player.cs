@@ -10,8 +10,6 @@ public partial class player : CharacterBody2D
 
 	private AnimatedSprite2D AnimatedSprite;
 
-	private List<bird> Birds = new List<bird>();
-
 	// Player state
 	private PlayerState playerState = PlayerState.Idle;
 	private PlayerState previousPlayerState = PlayerState.None;
@@ -114,11 +112,6 @@ public partial class player : CharacterBody2D
 
 
 #region Public Manipulators
-
-	public void NotifyNewBird(bird bird)
-	{
-		Birds.Add(bird);
-	}
 
 #endregion
 

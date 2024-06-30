@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 
 /*
@@ -19,6 +20,9 @@ public partial class bird : Area2D
 	[Export]
 	public float Speed;
 
+	[Export]
+	public float SocialDistancingFromPlayer;
+
 	// For movement related
 	private Vector3 acceleration;
 	private Vector2 velocity;
@@ -34,6 +38,12 @@ public partial class bird : Area2D
 	
 	// For following a certain target
 	private Transform2D target;
+
+
+	// For bird flocking behaviour
+	private static int totalNumberOfBirds = 0;
+	private static List<bird> otherBirds = new List<bird>();
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -106,17 +116,16 @@ public partial class bird : Area2D
 			if(birdState == BirdState.ApproachOwner)
 			{
 				// Notify that player has a new unit tagging along
-				birdOwner.NotifyNewBird(this);
+
 				birdOwner.Connect(nameof(birdOwner.PlayerIdle), new Callable(this, "OnPlayerIdle"), 0);
 				birdOwner.Connect(nameof(birdOwner.PlayerRunning), new Callable(this, "OnPlayerRunning"),  0);
 				birdOwner.Connect(nameof(birdOwner.PlayerDead), new Callable(this, "OnPlayerDead"), 0);
 
+				// Here we will get the number of birds within an area
+				totalNumberOfBirds++;
+				otherBirds.Add(this);
 			}
 
-
-			// We then can begin to loiter
-			birdState = BirdState.Loiter;
-			
 		}
 	}
 
@@ -124,21 +133,20 @@ public partial class bird : Area2D
 	{
 		if (area == this) // Check if the exited area is this bird
 		{			
-			if(birdState == BirdState.Loiter)
-			{
-				birdState = BirdState.FollowOwner;
-			}
+			// What we need to do here?
 		}
 	}
 
 	private void OnPlayerIdle()
 	{
 		GD.Print("Player is idle");
+		birdState = BirdState.FollowOwner;
 	}
 	
 	private void OnPlayerRunning()
 	{
 		GD.Print("Player is moving");
+		birdState = BirdState.FollowOwner;
 	}
 
 	private void OnPlayerDead()
@@ -149,6 +157,13 @@ public partial class bird : Area2D
 #endregion
 
 #region Private Manipulators
+
+	private void GetBirdsInArea()
+	{
+
+	}
+
+
 	private void FollowOwner(float delta)
 	{
 		if (birdOwner != null)
@@ -156,10 +171,50 @@ public partial class bird : Area2D
 			Vector2 direction = birdOwner.GlobalPosition - GlobalPosition;
 			direction = direction.Normalized();
 			velocity = direction * Speed;
+
+			// Check if the distance between the bird and birdOwner is less than a certain distance
+			float distanceThreshold = SocialDistancingFromPlayer; // Set your desired distance threshold here
+			float distance = GlobalPosition.DistanceTo(birdOwner.GlobalPosition);
+			if (distance <= distanceThreshold)
+			{
+				velocity = Vector2.Zero; // Stop moving
+			}
+
 			GlobalPosition += velocity * delta;
 		}
 	}
 
+	// This a mini boid behaviour
+	private void BoidBehaviour()
+	{
+		/*
+			There are 3 parts to this behaviour that will make it look more natural
+			We will try to base it of a simple BOID system
+			1) Speration: Avoid flocking over other Boids and player
+			2) Alignment: Align moving towards the same direction
+			3) Cohesion: Moving towrads the midsection of the crowd
+		*/
+
+
+	}
+
+	private Vector2 SteerTowards(Vector2 steerDirection)
+	{
+		Vector2 v = steerDirection.Normalized() * Speed - velocity;
+		return v.Clamp(v, new Vector2(3,3));
+	}
+
+	// This is to run when the player is not moving
+	private void LoiterBehaviour()
+	{
+
+	}
+
+	// When player is moving, it will follow the player
+	private void FollowOwnerBehaviour()
+	{
+
+	}
 
 #endregion
 
