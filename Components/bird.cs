@@ -35,6 +35,9 @@ public partial class bird : Area2D
 
 	// Bird States
 	private BirdState birdState = BirdState.None;
+
+	//Animation
+	private AnimatedSprite2D animationController;
 	
 	// For following a certain target
 	private Transform2D target;
@@ -50,6 +53,7 @@ public partial class bird : Area2D
 	{
 		// We will find the player and notify that we belong to the player
 		birdOwner = GetNode<player>("/root/Main/Player");
+		animationController = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
 		// Ensure playerNode is not null
 		if (birdOwner != null)
@@ -140,12 +144,17 @@ public partial class bird : Area2D
 	private void OnPlayerIdle()
 	{
 		GD.Print("Player is idle");
+		animationController.Animation = "Idle";
+		animationController.Play();
 		birdState = BirdState.FollowOwner;
 	}
 	
 	private void OnPlayerRunning()
 	{
 		GD.Print("Player is moving");
+		animationController.Animation = "Run";
+		animationController.Play();
+
 		birdState = BirdState.FollowOwner;
 	}
 
@@ -171,6 +180,15 @@ public partial class bird : Area2D
 			Vector2 direction = birdOwner.GlobalPosition - GlobalPosition;
 			direction = direction.Normalized();
 			velocity = direction * Speed;
+
+			if(direction.X > 0)
+			{
+				animationController.FlipH = false;
+			}
+			else if(direction.X < 0)
+			{
+				animationController.FlipH = true;
+			}
 
 			// Check if the distance between the bird and birdOwner is less than a certain distance
 			float distanceThreshold = SocialDistancingFromPlayer; // Set your desired distance threshold here
