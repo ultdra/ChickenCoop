@@ -1,49 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://bonym37hlpu23"]
 
+[ext_resource type="Script" path="res://Scripts/BirdManager.cs" id="1_6qww4"]
 [ext_resource type="PackedScene" uid="uid://ytft2eomjh57" path="res://Components/level.tscn" id="1_wq3we"]
 [ext_resource type="PackedScene" uid="uid://dap5grwpnee7j" path="res://Components/player.tscn" id="2_oj7nm"]
-[ext_resource type="PackedScene" uid="uid://bw1io7kf6pluv" path="res://Components/bird.tscn" id="3_bd2yf"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_6qww4")
 
 [node name="Level" parent="." instance=ExtResource("1_wq3we")]
 
 [node name="Player" parent="." instance=ExtResource("2_oj7nm")]
 scale = Vector2(4, 4)
+motion_mode = 1
 Speed = 500
-
-[node name="Bird" parent="." instance=ExtResource("3_bd2yf")]
-position = Vector2(496, 588)
-scale = Vector2(4, 4)
-Speed = 250.0
-SocialDistancingFromPlayer = 100.0
-
-[node name="Bird2" parent="." instance=ExtResource("3_bd2yf")]
-position = Vector2(570, 390)
-scale = Vector2(4, 4)
-Speed = 250.0
-SocialDistancingFromPlayer = 100.0
-
-[node name="Bird3" parent="." instance=ExtResource("3_bd2yf")]
-position = Vector2(716, 226)
-scale = Vector2(4, 4)
-Speed = 250.0
-SocialDistancingFromPlayer = 100.0
-
-[node name="Bird4" parent="." instance=ExtResource("3_bd2yf")]
-position = Vector2(1018, 214)
-scale = Vector2(4, 4)
-Speed = 250.0
-SocialDistancingFromPlayer = 100.0
-
-[node name="Bird5" parent="." instance=ExtResource("3_bd2yf")]
-position = Vector2(668, 846)
-scale = Vector2(4, 4)
-Speed = 250.0
-SocialDistancingFromPlayer = 100.0
-
-[node name="Bird6" parent="." instance=ExtResource("3_bd2yf")]
-position = Vector2(1076, 876)
-scale = Vector2(4, 4)
-Speed = 250.0
-SocialDistancingFromPlayer = 100.0

@@ -39,7 +39,7 @@ public partial class player : CharacterBody2D
 		
 		ScreenSize = GetViewportRect().Size;
 		Position = ScreenSize/2;
-
+		GD.Print(Position);
 		// Getting the references
 		AnimatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 	}
