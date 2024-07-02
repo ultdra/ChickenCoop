@@ -10,7 +10,7 @@ public class WanderingState : ChickenBase
     public override void Enter()
     {
         // Set wandering animation or sprite
-        targetPosition = GetRandomPosition();
+        targetPosition = chick.GetRandomPosition();
         wanderTime = 0f;
         chick.ChangeAnimation("Walking");
     }
@@ -39,9 +39,4 @@ public class WanderingState : ChickenBase
 
     public override void Exit() { }
 
-    private Vector2 GetRandomPosition()
-    {
-        // Implement logic to get a random position within the coop
-        return Vector2.Zero; // Placeholder
-    }
 }

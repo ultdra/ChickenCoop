@@ -398,16 +398,10 @@ animations = [{
 radius = 5.0
 
 [node name="BabyChick" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 15
+motion_mode = 1
 script = ExtResource("1_806r7")
-GrazingDuration = 20.0
-GrazingHungerDecrease = 10.0
-PlayBoredomDecrease = 100.0
-PlaySpeed = 60.0
-RelaxDuration = 10.0
-RelaxFatigueDecrease = 30.0
-SleepDuration = 120.0
-SleepFatigueDecreaseRate = 100.0
-WanderDuration = 15.0
 RelaxChance = 0.15
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

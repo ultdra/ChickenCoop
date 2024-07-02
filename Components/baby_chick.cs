@@ -81,10 +81,10 @@ public partial class baby_chick : CharacterBody2D
     public void ChangeState(ChickenStates newState)
     {
         GD.Print("Exiting state: " + currentChickenState.ToString());
+        GD.Print("Entering state: " + newState.ToString());
         states[currentChickenState].Exit();
         currentChickenState = newState;
         states[currentChickenState].Enter();
-        GD.Print("Entering state: " + newState.ToString());
     }
 
     public void DecreaseHunger(float amount)
@@ -106,6 +106,31 @@ public partial class baby_chick : CharacterBody2D
     {
         animationController.Animation = animationName;
         animationController.Play();
+    }
+
+    public Vector2 GetRandomPosition()
+    {
+        TileMap tileMap = GetNode<TileMap>("../Level");
+        Rect2 borders = tileMap.GetUsedRect();
+        Vector2 tileSize = tileMap.TileSet.TileSize;
+    
+        float minX = borders.Position.X * tileSize.X;
+        float maxX = (borders.Position.X + borders.Size.X) * tileSize.X * tileMap.Scale.X;
+
+        float minY = borders.Position.Y * tileSize.Y;
+        float maxY = (borders.Position.Y + borders.Size.Y) * tileSize.Y * tileMap.Scale.Y;
+
+        // GD.Print("minX: " + minX.ToString());
+        // GD.Print("maxX: " + maxX.ToString());
+        // GD.Print("minY: " + minY.ToString());
+        // GD.Print("maxY: " + maxY.ToString());
+    
+        float randomX = (float)GD.RandRange(minX, maxX);
+        float randomY = (float)GD.RandRange(minY, maxY);
+        
+        Vector2 randomPosition = new Vector2(randomX, randomY);
+        GD.Print(Name + " is going to " + randomPosition.ToString());
+        return randomPosition;
     }
 
     /// <summary>
