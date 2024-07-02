@@ -1,7 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://bxlg2osebr370"]
 
-[ext_resource type="Script" path="res://Components/bird.cs" id="1_g5hh3"]
+[ext_resource type="Script" path="res://Components/Archived/bird.cs" id="1_g5hh3"]
 [ext_resource type="Texture2D" uid="uid://c5dxl5mt1do87" path="res://Art/chickens/chicken default.png" id="2_5wum7"]
+
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hfy2u"]
 atlas = ExtResource("2_5wum7")

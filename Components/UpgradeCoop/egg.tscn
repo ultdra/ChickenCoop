@@ -119,7 +119,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qdf8t")
 }],
-"loop": true,
+"loop": false,
 "name": &"Hatching",
 "speed": 5.0
 }, {
@@ -137,6 +137,7 @@ animations = [{
 
 [node name="Egg" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_4sk3q")
-animation = &"Incubating"
+animation = &"Hatching"
+autoplay = "Incubating"
 script = ExtResource("2_24cab")
-hatchTime = 10.0
+hatchTime = 5.0

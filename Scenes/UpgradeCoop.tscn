@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxlb1y538bpo8"]
 
 [ext_resource type="Script" path="res://Scripts/BirdManager.cs" id="1_g7vol"]
-[ext_resource type="PackedScene" uid="uid://ytft2eomjh57" path="res://Components/level.tscn" id="2_kc1ox"]
+[ext_resource type="PackedScene" uid="uid://ytft2eomjh57" path="res://Components/Archived/level.tscn" id="2_kc1ox"]
 [ext_resource type="PackedScene" uid="uid://djhuv7vohsacr" path="res://Components/UpgradeCoop/egg.tscn" id="3_gac3b"]
-[ext_resource type="PackedScene" uid="uid://dap5grwpnee7j" path="res://Components/player.tscn" id="3_r0gou"]
+[ext_resource type="PackedScene" uid="uid://dap5grwpnee7j" path="res://Components/Archived/player.tscn" id="3_r0gou"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_g7vol")

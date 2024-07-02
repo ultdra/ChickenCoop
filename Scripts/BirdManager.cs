@@ -12,7 +12,7 @@ public partial class BirdManager : Node2D
         // GetTree().Root.TransparentBg = true;
         // DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Transparent, true, 0);
 
-        followerScene = GD.Load<PackedScene>("res://Components/bird.tscn");
+        followerScene = GD.Load<PackedScene>("res://Components/Archived/bird.tscn");
 
         GetNode<Node2D>("/root/Main/Player").AddToGroup("leader");
         for (int i = 0; i < numFollowers; i++)

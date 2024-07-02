@@ -9,10 +9,11 @@ public partial class egg : AnimatedSprite2D
 
     private bool hatched = false;
 
+    PackedScene chickScene;
     public override void _Ready()
     {
-        Animation = "Incubating";
-		Play();
+        chickScene = ResourceLoader.Load<PackedScene>("res://Components/UpgradeCoop/baby_chick.tscn");
+        Connect("animation_finished", new Callable(this, nameof(OnHatchFinish)), 0);
     }
 
     public override void _Process(double delta)
@@ -32,6 +33,18 @@ public partial class egg : AnimatedSprite2D
         // Instantiate a Chick at this position
         // Remove this Egg
         Animation = "Hatching";
-		Play();
+        Play();
+    }
+
+    private void OnHatchFinish()
+    {
+        // Spawn another gameobject
+        var chickInstance = chickScene.Instantiate() as Node2D;
+        GetParent().AddChild(chickInstance);
+        chickInstance.Position = Position; 
+
+        // Destroy this gameobject
+        QueueFree();
+
     }
 }
