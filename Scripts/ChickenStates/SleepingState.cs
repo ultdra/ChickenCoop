@@ -9,14 +9,15 @@ public class SleepingState : ChickenBase
     {
         // Set sleeping animation or sprite
         sleepTime = 0f;
+        chick.ChangeAnimation("Sleeping");
     }
 
     public override void Execute(float delta)
     {
         sleepTime += delta;
-        chick.DecreaseFatigue(delta * 5f);
+        chick.DecreaseFatigue(delta * chick.SleepFatigueDecreaseRate);
 
-        if (sleepTime >= SleepDuration || chick.Fatigue <= 0f)
+        if (sleepTime >= SleepDuration || chick.Fatigue <= chick.FatigueSleepThreshold)
         {
             chick.ChangeState(ChickenStates.Thinking);
         }

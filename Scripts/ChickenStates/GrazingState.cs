@@ -11,6 +11,8 @@ public class GrazingState : ChickenBase
     {
         // Set grazing animation or sprite
         grazingTime = 0f;
+        chick.ChangeAnimation("Grazing");
+
     }
 
     public override void Execute(float delta)
@@ -18,7 +20,7 @@ public class GrazingState : ChickenBase
         grazingTime += delta;
         if (grazingTime >= GrazingDuration)
         {
-            chick.DecreaseHunger(20f);
+            chick.DecreaseHunger(chick.GrazingHungerDecrease);
             chick.IncrementRandomStat();
             chick.ChangeState(ChickenStates.Thinking);
         }

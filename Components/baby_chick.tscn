@@ -399,10 +399,20 @@ radius = 5.0
 
 [node name="BabyChick" type="CharacterBody2D"]
 script = ExtResource("1_806r7")
+GrazingDuration = 20.0
+GrazingHungerDecrease = 10.0
+PlayBoredomDecrease = 100.0
+PlaySpeed = 60.0
+RelaxDuration = 10.0
+RelaxFatigueDecrease = 30.0
+SleepDuration = 120.0
+SleepFatigueDecreaseRate = 100.0
+WanderDuration = 15.0
+RelaxChance = 0.15
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ivm1f")
-animation = &"Relaxing"
+animation = &"Wandering1"
 autoplay = "Wandering1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

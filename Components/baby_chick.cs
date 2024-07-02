@@ -5,23 +5,31 @@ using System.Collections.Generic;
 public partial class baby_chick : CharacterBody2D
 {
 
-    [Export]
-    private float GrazeDuration = 120;
+    [Export] public float HungerDecayRate { get; set; } = 0.1f;
+    [Export] public float BoredomDecayRate { get; set; } = 0.15f;
+    [Export] public float FatigueDecayRate { get; set; } = 0.05f;
 
-    [Export]
-    private float SleepDuration = 120;
+    [Export] public float GrazingDuration { get; set; } = 5f;
+    [Export] public float GrazingHungerDecrease { get; set; } = 20f;
+    [Export] public int GrazingStatIncrease { get; set; } = 1;
 
-    [Export]
-    private float RelaxDuration = 120;
+    [Export] public float PlayDuration { get; set; } = 10f;
+    [Export] public float PlayBoredomDecrease { get; set; } = 30f;
+    [Export] public float PlaySpeed { get; set; } = 50f;
 
-    [Export]
-    private float HungerDecayRate = 120;
+    [Export] public float RelaxDuration { get; set; } = 8f;
+    [Export] public float RelaxFatigueDecrease { get; set; } = 10f;
 
-    [Export]
-    private float BoredomDecayRate = 120;
+    [Export] public float SleepDuration { get; set; } = 15f;
+    [Export] public float SleepFatigueDecreaseRate { get; set; } = 5f;
 
-    [Export]
-    private float FatigueDecayRate = 120;
+    [Export] public float WanderDuration { get; set; } = 7f;
+    [Export] public float WanderSpeed { get; set; } = 30f;
+
+    [Export] public float FatigueSleepThreshold { get; set; } = 80f;
+    [Export] public float HungerGrazeThreshold { get; set; } = 70f;
+    [Export] public float BoredomPlayThreshold { get; set; } = 60f;
+    [Export] public float RelaxChance { get; set; } = 0.3f;
 
     // Behaviour related
     public float Hunger { get; private set; } = 0f;
@@ -34,11 +42,16 @@ public partial class baby_chick : CharacterBody2D
 
     private ChickenStats stats = new ChickenStats();
 
+    // For animation
+    private AnimatedSprite2D animationController;
+
     // State timers
     private float stateTimer = 0;
 
     public override void _Ready()
     {
+        animationController = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
         states = new Dictionary<ChickenStates, ChickenBase>
         {
             { ChickenStates.Thinking, new ThinkingState(this) },
@@ -67,10 +80,10 @@ public partial class baby_chick : CharacterBody2D
 
     public void ChangeState(ChickenStates newState)
     {
+        GD.Print("Exiting state: " + currentChickenState.ToString());
         states[currentChickenState].Exit();
         currentChickenState = newState;
         states[currentChickenState].Enter();
-        GD.Print("Exiting state: " + currentChickenState.ToString());
         GD.Print("Entering state: " + newState.ToString());
     }
 
@@ -87,6 +100,21 @@ public partial class baby_chick : CharacterBody2D
     public void DecreaseFatigue(float amount)
     {
         Fatigue = Math.Max(Fatigue - amount, 0f);
+    }
+
+    public void ChangeAnimation(string animationName)
+    {
+        animationController.Animation = animationName;
+        animationController.Play();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="lookLeft"> False to look Right, True to look Left </param>
+    public void FlipAnimationDirection(bool LookLeft)
+    {
+        animationController.FlipH = LookLeft;
     }
 
     public void IncrementRandomStat()

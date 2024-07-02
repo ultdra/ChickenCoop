@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://b42maf10bbbs8"]
+
+[ext_resource type="PackedScene" uid="uid://d1lj8vbo5tt5v" path="res://Components/level.tscn" id="1_5v3yv"]
+[ext_resource type="PackedScene" uid="uid://djhuv7vohsacr" path="res://Components/egg.tscn" id="2_ho7yf"]
+
+[node name="Coop" type="Node2D"]
+
+[node name="Level" parent="." instance=ExtResource("1_5v3yv")]
+
+[node name="Egg" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(960, 540)
+scale = Vector2(3, 3)
+
+[node name="Egg2" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(620, 424)
+scale = Vector2(3, 3)
+
+[node name="Egg3" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(549, 778)
+scale = Vector2(3, 3)
+
+[node name="Egg4" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1368, 892)
+scale = Vector2(3, 3)
+
+[node name="Egg5" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(980, 259)
+scale = Vector2(3, 3)
+
+[node name="Egg6" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1345, 469)
+scale = Vector2(3, 3)
+
+[node name="Egg7" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(963, 878)
+scale = Vector2(3, 3)

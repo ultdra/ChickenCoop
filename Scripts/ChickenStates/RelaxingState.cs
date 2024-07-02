@@ -9,6 +9,7 @@ public class RelaxingState : ChickenBase
     {
         // Set relaxing animation or sprite
         relaxTime = 0f;
+        chick.ChangeAnimation("Relaxing");
     }
 
     public override void Execute(float delta)
@@ -16,7 +17,7 @@ public class RelaxingState : ChickenBase
         relaxTime += delta;
         if (relaxTime >= RelaxDuration)
         {
-            chick.DecreaseFatigue(10f);
+            chick.DecreaseFatigue(chick.RelaxFatigueDecrease);
             chick.ChangeState(ChickenStates.Thinking);
         }
     }

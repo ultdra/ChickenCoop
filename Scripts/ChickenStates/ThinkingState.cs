@@ -7,24 +7,25 @@ public class ThinkingState : ChickenBase
     public override void Enter()
     {
         // Set thinking animation or sprite
+        chick.ChangeAnimation("Wandering2");
     }
 
     public override void Execute(float delta)
     {
         // Decide next state based on factors
-        if (chick.Fatigue > 80f)
+        if (chick.Fatigue > chick.FatigueSleepThreshold)
         {
             chick.ChangeState(ChickenStates.Sleeping);
         }
-        else if (chick.Hunger > 70f)
+        else if (chick.Hunger > chick.HungerGrazeThreshold)
         {
             chick.ChangeState(ChickenStates.Grazing);
         }
-        else if (chick.Boredom > 60f)
+        else if (chick.Boredom > chick.BoredomPlayThreshold)
         {
             chick.ChangeState(ChickenStates.Playing);
         }
-        else if (GD.Randf() < 0.3f) // 30% chance to relax
+        else if (GD.Randf() < chick.RelaxChance) // 30% chance to relax
         {
             chick.ChangeState(ChickenStates.Relaxing);
         }

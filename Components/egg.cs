@@ -12,7 +12,7 @@ public partial class egg : AnimatedSprite2D
     PackedScene chickScene;
     public override void _Ready()
     {
-        chickScene = ResourceLoader.Load<PackedScene>("res://Components/UpgradeCoop/baby_chick.tscn");
+        chickScene = ResourceLoader.Load<PackedScene>("res://Components/baby_chick.tscn");
         Connect("animation_finished", new Callable(this, nameof(OnHatchFinish)), 0);
     }
 
@@ -39,10 +39,10 @@ public partial class egg : AnimatedSprite2D
     private void OnHatchFinish()
     {
         // Spawn another gameobject
-        var chickInstance = chickScene.Instantiate() as Node2D;
+        Node2D chickInstance = chickScene.Instantiate() as Node2D;
         GetParent().AddChild(chickInstance);
         chickInstance.Position = Position; 
-
+        chickInstance.Scale = new Vector2(3,3);
         // Destroy this gameobject
         QueueFree();
 
