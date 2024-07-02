@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Learn To Roar"
-run/main_scene="res://Scenes/main.tscn"
+run/main_scene="res://Scenes/UpgradeCoop.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 

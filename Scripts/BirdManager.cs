@@ -8,6 +8,10 @@ public partial class BirdManager : Node2D
 
     public override void _Ready()
     {
+        // For transparent background
+        // GetTree().Root.TransparentBg = true;
+        // DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Transparent, true, 0);
+
         followerScene = GD.Load<PackedScene>("res://Components/bird.tscn");
 
         GetNode<Node2D>("/root/Main/Player").AddToGroup("leader");
@@ -15,7 +19,7 @@ public partial class BirdManager : Node2D
         {
             bird follower = followerScene.Instantiate<bird>();
             AddChild(follower);
-            follower.Scale = new Vector2(4, 4);
+            follower.Scale = new Vector2(2,2);
 
             follower.AddToGroup("Bird");
 
