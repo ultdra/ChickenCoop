@@ -137,7 +137,6 @@ animations = [{
 
 [node name="Egg" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_4sk3q")
-animation = &"Hatching"
-frame = 6
-frame_progress = 0.753365
+animation = &"Incubating"
 script = ExtResource("2_24cab")
+hatchTime = 10.0
