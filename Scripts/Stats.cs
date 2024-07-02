@@ -25,4 +25,19 @@ public class ChickenStats
                 break;
         }
     }
+
+    public void IncreaseStrength(int amount)
+    {
+        Strength = Math.Min(Strength + amount, MaxStats - Agility - Vitality);
+    }
+
+    public void IncreaseAgility(int amount)
+    {
+        Agility = Math.Min(Agility + amount, MaxStats - Strength - Vitality);
+    }
+
+    public void IncreaseVitality(int amount)
+    {
+        Vitality = Math.Min(Vitality + amount, MaxStats - Strength - Agility);
+    }
 }

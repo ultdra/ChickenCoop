@@ -1,5 +1,6 @@
-[gd_scene load_steps=52 format=3 uid="uid://d224us0j6j0cy"]
+[gd_scene load_steps=53 format=3 uid="uid://d224us0j6j0cy"]
 
+[ext_resource type="Script" path="res://Components/baby_chick.cs" id="1_806r7"]
 [ext_resource type="Texture2D" uid="uid://w7a28vmwj7bq" path="res://Art/chickens/Chicken_Baby.png" id="1_s8ph8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fbtx7"]
@@ -397,12 +398,12 @@ animations = [{
 radius = 5.0
 
 [node name="BabyChick" type="CharacterBody2D"]
+script = ExtResource("1_806r7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ivm1f")
-animation = &"Wandering1"
+animation = &"Relaxing"
 autoplay = "Wandering1"
-frame_progress = 0.955904
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
