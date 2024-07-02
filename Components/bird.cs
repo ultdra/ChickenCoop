@@ -10,6 +10,8 @@ public partial class bird : CharacterBody2D
     private float separationRadius = 50.0f;
     private float comfortZone = 125.0f; // Distance to maintain from leader
     private float rotationSpeed = 20.0f;
+    private float surroundRadius = 60.0f; // Radius to surround the leader
+    private float flowFieldStrength = 0.5f; // Strength of the flow field effect
 
 	private BirdState birdState = BirdState.None;
 
@@ -54,22 +56,25 @@ public partial class bird : CharacterBody2D
 				break;
 			
 			case BirdState.FollowOwner:
-			        Vector2 acceleration = Vector2.Zero;
+                Vector2 acceleration = Vector2.Zero;
 
-					Vector2 alignment = Align();
-					Vector2 cohesion = Cohere();
-					Vector2 separation = Separate();
-					Vector2 follow = FollowLeader();
+                Vector2 alignment = Align();
+                Vector2 cohesion = Cohere();
+                Vector2 separation = Separate();
+                Vector2 follow = FollowLeader();
+                Vector2 flowField = GetFlowField();
 
-					acceleration += alignment * 1.0f;
-					acceleration += cohesion * 1.0f;
-					acceleration += separation * 5.0f; // Increased separation weight
-					acceleration += follow * 1.5f;
+                acceleration += alignment * 1.0f;
+                acceleration += cohesion * 1.0f;
+                acceleration += separation * 3.0f;
+                acceleration += follow * 1.5f;
+                acceleration += flowField * flowFieldStrength;
 
-					acceleration = acceleration.LimitLength(maxForce);
-					Velocity += acceleration;
-					Velocity = Velocity.LimitLength(maxSpeed);
-        			MoveAndSlide();
+                acceleration = acceleration.LimitLength(maxForce);
+                Velocity += acceleration;
+                Velocity = Velocity.LimitLength(maxSpeed);
+
+                MoveAndSlide();
 				break;
 
 			case BirdState.Loiter:
@@ -133,7 +138,7 @@ public partial class bird : CharacterBody2D
         return steering;
     }
 
-    private Vector2 Separate()
+ private Vector2 Separate()
     {
         Vector2 steering = Vector2.Zero;
         int total = 0;
@@ -144,7 +149,6 @@ public partial class bird : CharacterBody2D
             {
                 Vector2 diff = GlobalPosition - boid.GlobalPosition;
                 diff /= d * d;
-                // Apply stronger force for very close boids
                 if (d < separationRadius / 2)
                 {
                     diff *= 2;
@@ -162,9 +166,17 @@ public partial class bird : CharacterBody2D
         return steering;
     }
 
- 	private Vector2 FollowLeader()
+    private Vector2 FollowLeader()
     {
-        Vector2 desired = leader.GlobalPosition - GlobalPosition;
+        Vector2 toLeader = leader.GlobalPosition - GlobalPosition;
+        float distanceToLeader = toLeader.Length();
+
+        // Calculate a position around the leader
+        float angle = GlobalPosition.AngleToPoint(leader.GlobalPosition);
+        angle += Mathf.Pi / 2; // Offset by 90 degrees to orbit around the leader
+        Vector2 targetPosition = leader.GlobalPosition + Vector2.Right.Rotated(angle) * surroundRadius;
+
+        Vector2 desired = targetPosition - GlobalPosition;
         float distance = desired.Length();
 
         if (distance > comfortZone)
@@ -178,6 +190,24 @@ public partial class bird : CharacterBody2D
             // If within comfort zone, slow down
             return -Velocity * (1 - distance / comfortZone);
         }
+    }
+
+    private Vector2 GetFlowField()
+    {
+        // Create a flow field that encourages sliding past other boids
+        Vector2 flow = Vector2.Zero;
+        foreach (var boid in flock)
+        {
+            if (boid != this)
+            {
+                Vector2 offset = boid.GlobalPosition - GlobalPosition;
+                if (offset.Length() < perceptionRadius)
+                {
+                    flow += offset.Rotated(Mathf.Pi / 2).Normalized(); // Rotate 90 degrees to create a perpendicular flow
+                }
+            }
+        }
+        return flow.Normalized();
     }
 #endregion
 
