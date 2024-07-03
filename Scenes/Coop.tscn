@@ -5,6 +5,9 @@
 
 [node name="Coop" type="Node2D"]
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(962, 547)
+
 [node name="Level" parent="." instance=ExtResource("1_5v3yv")]
 
 [node name="Egg" parent="." instance=ExtResource("2_ho7yf")]
@@ -46,3 +49,5 @@ scale = Vector2(3, 3)
 [node name="Egg10" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(315, 200)
 scale = Vector2(3, 3)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

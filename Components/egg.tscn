@@ -140,4 +140,11 @@ sprite_frames = SubResource("SpriteFrames_4sk3q")
 animation = &"Hatching"
 autoplay = "Incubating"
 script = ExtResource("2_24cab")
-hatchTime = 5.0
+hatchTimeRange = Vector2(1, 3)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -23.0
+offset_top = -27.0
+offset_right = 25.0
+offset_bottom = -4.0
+text = "fsadfa"

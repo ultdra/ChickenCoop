@@ -151,7 +151,6 @@ public partial class baby_chick : CharacterBody2D
         float randomY = (float)GD.RandRange(minY, maxY);
         
         Vector2 randomPosition = new Vector2(randomX, randomY);
-        GD.Print(Name + " is going to " + randomPosition.ToString());
         return randomPosition;
     }
 
