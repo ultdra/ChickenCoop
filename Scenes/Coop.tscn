@@ -11,43 +11,21 @@ position = Vector2(962, 547)
 [node name="Level" parent="." instance=ExtResource("1_5v3yv")]
 
 [node name="Egg" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(987, 571)
+position = Vector2(938, 470)
 scale = Vector2(3, 3)
 
 [node name="Egg2" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1409, 382)
+position = Vector2(1705, 135)
 scale = Vector2(3, 3)
 
 [node name="Egg3" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(283, 427)
+position = Vector2(230, 157)
 scale = Vector2(3, 3)
 
 [node name="Egg4" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1470, 816)
+position = Vector2(1538, 845)
 scale = Vector2(3, 3)
 
 [node name="Egg5" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(746, 814)
+position = Vector2(265, 875)
 scale = Vector2(3, 3)
-
-[node name="Egg6" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1501, 603)
-scale = Vector2(3, 3)
-
-[node name="Egg7" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(655, 309)
-scale = Vector2(3, 3)
-
-[node name="Egg8" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(360, 658)
-scale = Vector2(3, 3)
-
-[node name="Egg9" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1322, 211)
-scale = Vector2(3, 3)
-
-[node name="Egg10" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(315, 200)
-scale = Vector2(3, 3)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]

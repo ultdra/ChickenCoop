@@ -2,17 +2,26 @@ using Godot;
 
 public class ThinkingState : ChickenBase
 {
-
+    private float thinkingTime = 0f;
+    private float thinkingDuration = 0f;
     public ThinkingState(baby_chick chick) : base(chick) { }
 
     public override void Enter()
     {
+        thinkingTime = 0f;
+        thinkingDuration = (float)GD.RandRange(chick.ThinkingDuration.X, chick.ThinkingDuration.Y);
         // Set thinking animation or sprite
         chick.ChangeAnimation("Wandering2");
     }
 
     public override void Execute(float delta)
     {
+        thinkingTime += delta;
+        if(thinkingTime < thinkingDuration)
+        {
+            return;
+        }
+
         if (GD.Randf() < chick.RelaxChance) // 30% chance to relax
         {
             chick.ChangeState(ChickenStates.Relaxing);

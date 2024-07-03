@@ -3,6 +3,7 @@ using Godot;
 public class GrazingState : ChickenBase
 {
     private float grazingTime = 0f;
+    private float totalGrazeTime = 0f;
     private float GrazingDuration;
 
     public GrazingState(baby_chick chick) : base(chick) { }
@@ -19,9 +20,15 @@ public class GrazingState : ChickenBase
     public override void Execute(float delta)
     {
         grazingTime += delta;
-        if (grazingTime >= GrazingDuration)
+        totalGrazeTime += delta;
+        if (grazingTime >= 1f)
         {
+            grazingTime = 0f;
             chick.DecreaseHunger(chick.HungerDecreaseAmount);
+        }
+
+        if(totalGrazeTime >= GrazingDuration)
+        {
             chick.IncrementRandomStat();
             chick.ChangeState(ChickenStates.Thinking);
         }

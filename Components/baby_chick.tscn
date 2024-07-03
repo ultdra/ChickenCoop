@@ -228,7 +228,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0gfs1")
 }],
-"loop": false,
+"loop": true,
 "name": &"Grazing",
 "speed": 5.0
 }, {
@@ -403,8 +403,9 @@ collision_mask = 15
 motion_mode = 1
 script = ExtResource("1_806r7")
 HungerDecayRate = 1.0
-BoredomDecayRate = 1.0
-FatigueDecayRate = 1.0
+BoredomDecayRate = 0.5
+FatigueDecayRate = 0.5
+HungerDecreaseAmount = 4.0
 FatigueThreshold = 50.0
 HungerThreshold = 50.0
 BoredomThreshold = 80.0
@@ -412,7 +413,7 @@ RelaxChance = 0.15
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ivm1f")
-animation = &"Sitting"
+animation = &"Wandering2"
 autoplay = "Wandering1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

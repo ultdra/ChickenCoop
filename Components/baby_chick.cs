@@ -12,6 +12,9 @@ public partial class baby_chick : CharacterBody2D
     [Export] 
     public float FatigueDecayRate { get; set; } = 0.05f;
 
+    [Export]
+    public Vector2 ThinkingDuration { get; set; } = new Vector2(3f, 7f);
+
     [Export] 
     public Vector2 GrazingDuration { get; set; } = new Vector2(15f, 30f);
     [Export] 
@@ -110,9 +113,9 @@ public partial class baby_chick : CharacterBody2D
         Hunger = (float)Math.Min(Hunger + HungerDecayRate * delta, 100f);
         Boredom = (float)Math.Min(Boredom + BoredomDecayRate * delta, 100f);
         Fatigue = (float)Math.Min(Fatigue + FatigueDecayRate * delta, 100f);
-        hungerLabel.Text = $"Hunger: {Hunger.ToString("F2")}";
-        boredomLabel.Text = $"Boredom: {Boredom.ToString("F2")}";
-        fatigueLabel.Text = $"Fatigue: {Fatigue.ToString("F2")}";
+        hungerLabel.Text = $"Hunger: {Hunger.ToString("F0")}";
+        boredomLabel.Text = $"Boredom: {Boredom.ToString("F0")}";
+        fatigueLabel.Text = $"Fatigue: {Fatigue.ToString("F0")}";
     }
 
     public void ChangeState(ChickenStates newState)
