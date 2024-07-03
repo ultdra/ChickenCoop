@@ -67,8 +67,23 @@ public partial class baby_chick : CharacterBody2D
     // State timers
     private float stateTimer = 0;
 
+    // Debug labels
+    private Label nameLabel;
+    private Label stateLabel;
+    private Label hungerLabel;
+    private Label boredomLabel;
+    private Label fatigueLabel;
+
+
+
     public override void _Ready()
     {
+        nameLabel = GetNode<Label>("NameLabel");
+        stateLabel = GetNode<Label>("StateLabel");
+        hungerLabel = GetNode<Label>("HungerLabel");
+        boredomLabel = GetNode<Label>("BoredomLabel");
+        fatigueLabel = GetNode<Label>("FatigueLabel");
+
         animationController = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         states = new Dictionary<ChickenStates, ChickenBase>
@@ -95,9 +110,9 @@ public partial class baby_chick : CharacterBody2D
         Hunger = (float)Math.Min(Hunger + HungerDecayRate * delta, 100f);
         Boredom = (float)Math.Min(Boredom + BoredomDecayRate * delta, 100f);
         Fatigue = (float)Math.Min(Fatigue + FatigueDecayRate * delta, 100f);
-        GD.Print("Hunger: " + Hunger);
-        GD.Print("Boredom: " + Boredom);
-        GD.Print("Fatigue: " + Fatigue);
+        hungerLabel.Text = $"Hunger: {Hunger.ToString("F2")}";
+        boredomLabel.Text = $"Boredom: {Boredom.ToString("F2")}";
+        fatigueLabel.Text = $"Fatigue: {Fatigue.ToString("F2")}";
     }
 
     public void ChangeState(ChickenStates newState)
@@ -107,6 +122,7 @@ public partial class baby_chick : CharacterBody2D
         states[currentChickenState].Exit();
         currentChickenState = newState;
         states[currentChickenState].Enter();
+        stateLabel.Text = newState.ToString();
     }
 
     public void DecreaseHunger(float amount)
