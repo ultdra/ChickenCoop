@@ -17,7 +17,7 @@ public class RelaxingState : ChickenBase
         relaxTime += delta;
         if (relaxTime >= RelaxDuration)
         {
-            chick.DecreaseFatigue(chick.RelaxFatigueDecrease);
+            chick.DecreaseFatigue(chick.RelaxFatigueDecreaseAmount);
             chick.ChangeState(ChickenStates.Thinking);
         }
     }

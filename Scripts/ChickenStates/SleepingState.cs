@@ -17,7 +17,7 @@ public class SleepingState : ChickenBase
         sleepTime += delta;
         chick.DecreaseFatigue(delta * chick.SleepFatigueDecreaseRate);
 
-        if (sleepTime >= SleepDuration || chick.Fatigue <= chick.FatigueSleepThreshold)
+        if (sleepTime >= SleepDuration || chick.Fatigue <= chick.FatigueThreshold)
         {
             chick.ChangeState(ChickenStates.Thinking);
         }

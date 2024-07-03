@@ -5,31 +5,50 @@ using System.Collections.Generic;
 public partial class baby_chick : CharacterBody2D
 {
 
-    [Export] public float HungerDecayRate { get; set; } = 0.1f;
-    [Export] public float BoredomDecayRate { get; set; } = 0.15f;
-    [Export] public float FatigueDecayRate { get; set; } = 0.05f;
+    [Export] 
+    public float HungerDecayRate { get; set; } = 0.1f;
+    [Export] 
+    public float BoredomDecayRate { get; set; } = 0.15f;
+    [Export] 
+    public float FatigueDecayRate { get; set; } = 0.05f;
 
-    [Export] public float GrazingDuration { get; set; } = 5f;
-    [Export] public float GrazingHungerDecrease { get; set; } = 20f;
-    [Export] public int GrazingStatIncrease { get; set; } = 1;
+    [Export] 
+    public float GrazingDuration { get; set; } = 5f;
+    [Export] 
+    public float HungerDecreaseAmount { get; set; } = 20f;
+    [Export] 
+    public int GrazeStatIncreaseAmount { get; set; } = 1;
 
-    [Export] public float PlayDuration { get; set; } = 10f;
-    [Export] public float PlayBoredomDecrease { get; set; } = 30f;
-    [Export] public float PlaySpeed { get; set; } = 50f;
+    [Export] 
+    public float PlayDuration { get; set; } = 10f;
+    [Export] 
+    public float BoredomDecreaseAmount { get; set; } = 30f;
+    [Export] 
+    public float PlaySpeed { get; set; } = 50f;
 
-    [Export] public float RelaxDuration { get; set; } = 8f;
-    [Export] public float RelaxFatigueDecrease { get; set; } = 10f;
+    [Export] 
+    public float RelaxDuration { get; set; } = 8f;
+    [Export] 
+    public float RelaxFatigueDecreaseAmount { get; set; } = 10f;
 
-    [Export] public float SleepDuration { get; set; } = 15f;
-    [Export] public float SleepFatigueDecreaseRate { get; set; } = 5f;
+    [Export] 
+    public float SleepDuration { get; set; } = 15f;
+    [Export] 
+    public float SleepFatigueDecreaseRate { get; set; } = 5f;
 
-    [Export] public float WanderDuration { get; set; } = 7f;
-    [Export] public float WanderSpeed { get; set; } = 30f;
+    [Export] 
+    public float WanderDuration { get; set; } = 7f;
+    [Export] 
+    public float WanderSpeed { get; set; } = 30f;
 
-    [Export] public float FatigueSleepThreshold { get; set; } = 80f;
-    [Export] public float HungerGrazeThreshold { get; set; } = 70f;
-    [Export] public float BoredomPlayThreshold { get; set; } = 60f;
-    [Export] public float RelaxChance { get; set; } = 0.3f;
+    [Export] 
+    public float FatigueThreshold { get; set; } = 80f;
+    [Export] 
+    public float HungerThreshold { get; set; } = 70f;
+    [Export] 
+    public float BoredomThreshold { get; set; } = 60f;
+    [Export] 
+    public float RelaxChance { get; set; } = 0.3f;
 
     // Behaviour related
     public float Hunger { get; private set; } = 0f;
@@ -76,6 +95,9 @@ public partial class baby_chick : CharacterBody2D
         Hunger = (float)Math.Min(Hunger + HungerDecayRate * delta, 100f);
         Boredom = (float)Math.Min(Boredom + BoredomDecayRate * delta, 100f);
         Fatigue = (float)Math.Min(Fatigue + FatigueDecayRate * delta, 100f);
+        Console.WriteLine("Hunger: " + Hunger);
+        Console.WriteLine("Boredom: " + Boredom);
+        Console.WriteLine("Fatigue: " + Fatigue);
     }
 
     public void ChangeState(ChickenStates newState)

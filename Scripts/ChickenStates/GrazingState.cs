@@ -20,7 +20,7 @@ public class GrazingState : ChickenBase
         grazingTime += delta;
         if (grazingTime >= GrazingDuration)
         {
-            chick.DecreaseHunger(chick.GrazingHungerDecrease);
+            chick.DecreaseHunger(chick.HungerDecreaseAmount);
             chick.IncrementRandomStat();
             chick.ChangeState(ChickenStates.Thinking);
         }

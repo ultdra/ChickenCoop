@@ -10,74 +10,49 @@
 [node name="Egg" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(987, 569)
 scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0
 
 [node name="Egg2" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(620, 424)
+position = Vector2(1409, 382)
 scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0
 
 [node name="Egg3" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(549, 778)
+position = Vector2(283, 427)
 scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0
 
 [node name="Egg4" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1368, 892)
+position = Vector2(1470, 816)
 scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0
 
 [node name="Egg5" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(980, 259)
+position = Vector2(746, 814)
 scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0
 
 [node name="Egg6" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1345, 469)
+position = Vector2(1501, 603)
 scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0
 
 [node name="Egg7" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(963, 878)
+position = Vector2(655, 309)
 scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0
 
 [node name="Egg8" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(286, 251)
+position = Vector2(360, 658)
 scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0
 
 [node name="Egg9" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(231, 632)
+position = Vector2(1322, 211)
 scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0
 
 [node name="Egg10" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1578, 187)
+position = Vector2(315, 200)
 scale = Vector2(3, 3)
-hatchTime = 15.0
-
-[node name="Egg11" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1605, 739)
-scale = Vector2(3, 3)
-hatchTime = 15.0
-
-[node name="Egg12" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(716, 212)
-scale = Vector2(3, 3)
-hatchTime = 15.0
-
-[node name="Egg13" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(313, 937)
-scale = Vector2(3, 3)
-hatchTime = 15.0
-
-[node name="Egg14" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1270, 183)
-scale = Vector2(3, 3)
-hatchTime = 15.0
-
-[node name="Egg15" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1646, 477)
-scale = Vector2(3, 3)
-hatchTime = 15.0
+hatchTime = 2.0

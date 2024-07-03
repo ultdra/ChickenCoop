@@ -27,7 +27,7 @@ public class PlayingState : ChickenBase
 
         if (playTime >= PlayDuration)
         {
-            chick.DecreaseBoredom(chick.BoredomPlayThreshold);
+            chick.DecreaseBoredom(chick.BoredomThreshold);
             chick.ChangeState(ChickenStates.Thinking);
         }
     }
