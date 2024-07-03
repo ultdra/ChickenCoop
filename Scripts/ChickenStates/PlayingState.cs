@@ -1,10 +1,21 @@
 using Godot;
 
+
+/// <summary>
+/// This will be the flesh and bone of the chick's behaviour.
+/// 
+/// Inspired by the Boid system, we should start seeing chicks run around.
+/// 
+/// Nearby chicks will be attracted to each other and will start playing.
+/// 
+/// </summary>
 public class PlayingState : ChickenBase
 {
     private float playTime = 0f;
     private float PlayDuration;
     private baby_chick playmate;
+
+    // For boids related
 
     public PlayingState(baby_chick chick) : base(chick) { }
 

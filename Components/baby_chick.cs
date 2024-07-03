@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public partial class baby_chick : CharacterBody2D
 {
-
+    [ExportGroup("Decay Rates")]
     [Export] 
     public float HungerDecayRate { get; set; } = 0.1f;
     [Export] 
@@ -12,38 +12,7 @@ public partial class baby_chick : CharacterBody2D
     [Export] 
     public float FatigueDecayRate { get; set; } = 0.05f;
 
-    [Export]
-    public Vector2 ThinkingDuration { get; set; } = new Vector2(3f, 7f);
-
-    [Export] 
-    public Vector2 GrazingDuration { get; set; } = new Vector2(15f, 30f);
-    [Export] 
-    public float HungerDecreaseAmount { get; set; } = 20f;
-    [Export] 
-    public int GrazeStatIncreaseAmount { get; set; } = 1;
-
-    [Export] 
-    public Vector2 PlayDuration { get; set; } = new Vector2(15f, 30f);
-    [Export] 
-    public float BoredomDecreaseAmount { get; set; } = 30f;
-    [Export] 
-    public float PlaySpeed { get; set; } = 50f;
-
-    [Export] 
-    public Vector2 RelaxDuration { get; set; } = new Vector2(10f, 20f);
-    [Export] 
-    public float RelaxFatigueDecreaseAmount { get; set; } = 10f;
-
-    [Export] 
-    public Vector2 SleepDuration { get; set; } = new Vector2(15f, 30f);
-    [Export] 
-    public float SleepFatigueDecreaseRate { get; set; } = 5f;
-
-    [Export] 
-    public Vector2 WanderDuration { get; set; } = new Vector2(5f, 10f);
-    [Export] 
-    public float WanderSpeed { get; set; } = 30f;
-
+    [ExportGroup("Thresholds")]
     [Export] 
     public float FatigueThreshold { get; set; } = 80f;
     [Export] 
@@ -52,6 +21,46 @@ public partial class baby_chick : CharacterBody2D
     public float BoredomThreshold { get; set; } = 60f;
     [Export] 
     public float RelaxChance { get; set; } = 0.3f;
+
+    [ExportGroup("Thinking State")]
+    [Export]
+    public Vector2 ThinkingDuration { get; set; } = new Vector2(3f, 7f);
+
+    [ExportGroup("Grazing State")]
+    [Export] 
+    public Vector2 GrazingDuration { get; set; } = new Vector2(15f, 30f);
+    [Export] 
+    public float HungerDecreaseAmount { get; set; } = 20f;
+    [Export] 
+    public int GrazeStatIncreaseAmount { get; set; } = 1;
+
+    [ExportGroup("Play State")]
+    [Export] 
+    public Vector2 PlayDuration { get; set; } = new Vector2(15f, 30f);
+    [Export] 
+    public float BoredomDecreaseAmount { get; set; } = 30f;
+    [Export] 
+    public float PlaySpeed { get; set; } = 50f;
+    [Export]
+    public float PlayAttractRange { get; set; } = 100f;
+
+    [ExportGroup("Fatigue State")]
+    [Export] 
+    public Vector2 RelaxDuration { get; set; } = new Vector2(10f, 20f);
+    [Export] 
+    public float RelaxFatigueDecreaseAmount { get; set; } = 10f;
+    [Export] 
+    public Vector2 SleepDuration { get; set; } = new Vector2(15f, 30f);
+    [Export] 
+    public float SleepFatigueDecreaseRate { get; set; } = 5f;
+
+    [ExportGroup("Wandering State")]
+    [Export] 
+    public Vector2 WanderDuration { get; set; } = new Vector2(5f, 10f);
+    [Export] 
+    public float WanderSpeed { get; set; } = 30f;
+
+
 
     // Behaviour related
     public float Hunger { get; private set; } = 0f;
