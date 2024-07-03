@@ -3,13 +3,14 @@ using Godot;
 public class GrazingState : ChickenBase
 {
     private float grazingTime = 0f;
-    private const float GrazingDuration = 5f;
+    private float GrazingDuration;
 
     public GrazingState(baby_chick chick) : base(chick) { }
 
     public override void Enter()
     {
         // Set grazing animation or sprite
+        GrazingDuration = (float)GD.RandRange(chick.GrazingDuration.X, chick.GrazingDuration.Y);
         grazingTime = 0f;
         chick.ChangeAnimation("Grazing");
 

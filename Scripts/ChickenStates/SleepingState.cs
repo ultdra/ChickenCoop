@@ -1,13 +1,16 @@
+using Godot;
+
 public class SleepingState : ChickenBase
 {
     private float sleepTime = 0f;
-    private const float SleepDuration = 15f;
+    private float SleepDuration;
 
     public SleepingState(baby_chick chick) : base(chick) { }
 
     public override void Enter()
     {
         // Set sleeping animation or sprite
+        SleepDuration = (float)GD.RandRange(chick.SleepDuration.X, chick.SleepDuration.Y);
         sleepTime = 0f;
         chick.ChangeAnimation("Sleeping");
     }

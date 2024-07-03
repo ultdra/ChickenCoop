@@ -8,51 +8,41 @@
 [node name="Level" parent="." instance=ExtResource("1_5v3yv")]
 
 [node name="Egg" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(987, 569)
+position = Vector2(987, 571)
 scale = Vector2(3, 3)
-hatchTime = 2.0
 
 [node name="Egg2" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(1409, 382)
 scale = Vector2(3, 3)
-hatchTime = 2.0
 
 [node name="Egg3" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(283, 427)
 scale = Vector2(3, 3)
-hatchTime = 2.0
 
 [node name="Egg4" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(1470, 816)
 scale = Vector2(3, 3)
-hatchTime = 2.0
 
 [node name="Egg5" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(746, 814)
 scale = Vector2(3, 3)
-hatchTime = 2.0
 
 [node name="Egg6" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(1501, 603)
 scale = Vector2(3, 3)
-hatchTime = 2.0
 
 [node name="Egg7" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(655, 309)
 scale = Vector2(3, 3)
-hatchTime = 2.0
 
 [node name="Egg8" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(360, 658)
 scale = Vector2(3, 3)
-hatchTime = 2.0
 
 [node name="Egg9" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(1322, 211)
 scale = Vector2(3, 3)
-hatchTime = 2.0
 
 [node name="Egg10" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(315, 200)
 scale = Vector2(3, 3)
-hatchTime = 2.0

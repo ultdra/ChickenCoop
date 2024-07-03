@@ -21,6 +21,8 @@ public class WanderingState : ChickenBase
         Vector2 direction = (targetPosition - chick.GlobalPosition).Normalized();
         chick.GlobalPosition += direction * chick.WanderSpeed * delta;
 
+        float wanderDuration = (float)GD.RandRange(chick.WanderDuration.X, chick.WanderDuration.Y);
+
         if(direction.X > 0)
         {
             chick.FlipAnimationDirection(false);
@@ -31,7 +33,7 @@ public class WanderingState : ChickenBase
             chick.FlipAnimationDirection(true);
         }
 
-        if (chick.GlobalPosition.DistanceTo(targetPosition) < 5f || wanderTime >= chick.WanderDuration)
+        if (chick.GlobalPosition.DistanceTo(targetPosition) < 5f || wanderTime >= wanderDuration)
         {
             chick.ChangeState(ChickenStates.Thinking);
         }

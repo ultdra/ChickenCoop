@@ -13,31 +13,31 @@ public partial class baby_chick : CharacterBody2D
     public float FatigueDecayRate { get; set; } = 0.05f;
 
     [Export] 
-    public float GrazingDuration { get; set; } = 5f;
+    public Vector2 GrazingDuration { get; set; } = new Vector2(15f, 30f);
     [Export] 
     public float HungerDecreaseAmount { get; set; } = 20f;
     [Export] 
     public int GrazeStatIncreaseAmount { get; set; } = 1;
 
     [Export] 
-    public float PlayDuration { get; set; } = 10f;
+    public Vector2 PlayDuration { get; set; } = new Vector2(15f, 30f);
     [Export] 
     public float BoredomDecreaseAmount { get; set; } = 30f;
     [Export] 
     public float PlaySpeed { get; set; } = 50f;
 
     [Export] 
-    public float RelaxDuration { get; set; } = 8f;
+    public Vector2 RelaxDuration { get; set; } = new Vector2(10f, 20f);
     [Export] 
     public float RelaxFatigueDecreaseAmount { get; set; } = 10f;
 
     [Export] 
-    public float SleepDuration { get; set; } = 15f;
+    public Vector2 SleepDuration { get; set; } = new Vector2(15f, 30f);
     [Export] 
     public float SleepFatigueDecreaseRate { get; set; } = 5f;
 
     [Export] 
-    public float WanderDuration { get; set; } = 7f;
+    public Vector2 WanderDuration { get; set; } = new Vector2(5f, 10f);
     [Export] 
     public float WanderSpeed { get; set; } = 30f;
 
@@ -95,15 +95,15 @@ public partial class baby_chick : CharacterBody2D
         Hunger = (float)Math.Min(Hunger + HungerDecayRate * delta, 100f);
         Boredom = (float)Math.Min(Boredom + BoredomDecayRate * delta, 100f);
         Fatigue = (float)Math.Min(Fatigue + FatigueDecayRate * delta, 100f);
-        Console.WriteLine("Hunger: " + Hunger);
-        Console.WriteLine("Boredom: " + Boredom);
-        Console.WriteLine("Fatigue: " + Fatigue);
+        GD.Print("Hunger: " + Hunger);
+        GD.Print("Boredom: " + Boredom);
+        GD.Print("Fatigue: " + Fatigue);
     }
 
     public void ChangeState(ChickenStates newState)
     {
-        GD.Print("Exiting state: " + currentChickenState.ToString());
-        GD.Print("Entering state: " + newState.ToString());
+        // GD.Print("Exiting state: " + currentChickenState.ToString());
+        // GD.Print("Entering state: " + newState.ToString());
         states[currentChickenState].Exit();
         currentChickenState = newState;
         states[currentChickenState].Enter();

@@ -3,7 +3,7 @@ using Godot;
 public class PlayingState : ChickenBase
 {
     private float playTime = 0f;
-    private const float PlayDuration = 10f;
+    private float PlayDuration;
     private baby_chick playmate;
 
     public PlayingState(baby_chick chick) : base(chick) { }
@@ -11,6 +11,7 @@ public class PlayingState : ChickenBase
     public override void Enter()
     {
         // Set playing animation or sprite
+        PlayDuration =  (float)GD.RandRange(playmate.PlayDuration.X, playmate.PlayDuration.Y);
         playTime = 0f;
         playmate = FindNearestChick();
     }
