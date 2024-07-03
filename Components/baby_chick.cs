@@ -82,7 +82,7 @@ public partial class baby_chick : CharacterBody2D
 
     private ChickenStats stats = new ChickenStats();
 
-    private bool CanPlay = true;
+    public bool CanPlay { get; private set; } = true;
     private float playCooldownTimer = 0f;
 
     // For animation
@@ -90,6 +90,7 @@ public partial class baby_chick : CharacterBody2D
 
     // State timers
     private float stateTimer = 0;
+    public ChickenStates CurrentChickState => currentChickenState;
 
     // Debug labels
     private Label nameLabel;
@@ -177,6 +178,28 @@ public partial class baby_chick : CharacterBody2D
     {
         animationController.Animation = animationName;
         animationController.Play();
+    }
+
+    public Rect2 GetTileMapBounds()
+    {
+        TileMap tileMap = GetNode<TileMap>("../Level");
+
+        if (tileMap == null)
+        {
+            GD.PrintErr("TileMap not set for Chick");
+            return new Rect2(0, 0, 1, 1);
+        }
+
+        Rect2 usedRect = tileMap.GetUsedRect();
+        Vector2 tileSize = tileMap.TileSet.TileSize;
+        Vector2 tileMapScale = tileMap.Scale;
+
+        float minX = usedRect.Position.X * tileSize.X * tileMapScale.X;
+        float minY = usedRect.Position.Y * tileSize.Y * tileMapScale.Y;
+        float maxX = (usedRect.Position.X + usedRect.Size.X) * tileSize.X * tileMapScale.X;
+        float maxY = (usedRect.Position.Y + usedRect.Size.Y) * tileSize.Y * tileMapScale.Y;
+
+        return new Rect2(minX, minY, maxX - minX, maxY - minY);
     }
 
     public Vector2 GetRandomPosition()
