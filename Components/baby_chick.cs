@@ -42,6 +42,8 @@ public partial class baby_chick : CharacterBody2D
     [Export] 
     public float PlaySpeed { get; set; } = 50f;
     [Export]
+    public float PlayCooldown { get; set; } = 300f;
+    [Export]
     public float PlayAttractRange { get; set; } = 100f;
 
     [ExportGroup("Fatigue State")]
@@ -60,6 +62,13 @@ public partial class baby_chick : CharacterBody2D
     [Export] 
     public float WanderSpeed { get; set; } = 30f;
 
+    [ExportGroup("Boid System")]
+    [Export] 
+    public float AvoidanceFactor { get; set; } = 80f;
+    [Export] 
+    public float AlignmentFactor { get; set; } = 70f;
+    [Export] 
+    public float CohesionFactor { get; set; } = 60f;
 
 
     // Behaviour related
@@ -73,6 +82,9 @@ public partial class baby_chick : CharacterBody2D
 
     private ChickenStats stats = new ChickenStats();
 
+    private bool CanPlay = true;
+    private float playCooldownTimer = 0f;
+
     // For animation
     private AnimatedSprite2D animationController;
 
@@ -85,7 +97,6 @@ public partial class baby_chick : CharacterBody2D
     private Label hungerLabel;
     private Label boredomLabel;
     private Label fatigueLabel;
-
 
 
     public override void _Ready()
@@ -113,6 +124,16 @@ public partial class baby_chick : CharacterBody2D
 
     public override void _Process(double delta)
     {
+        if(!CanPlay)
+        {
+            playCooldownTimer += (float)delta;
+            if(playCooldownTimer >= PlayCooldown)
+            {
+                CanPlay = true;
+                playCooldownTimer = 0f;
+            }
+        }
+
         UpdateFactors((float)delta);
         states[currentChickenState].Execute((float)delta);
     }
@@ -169,17 +190,35 @@ public partial class baby_chick : CharacterBody2D
 
         float minY = borders.Position.Y * tileSize.Y;
         float maxY = (borders.Position.Y + borders.Size.Y) * tileSize.Y * tileMap.Scale.Y;
-
-        // GD.Print("minX: " + minX.ToString());
-        // GD.Print("maxX: " + maxX.ToString());
-        // GD.Print("minY: " + minY.ToString());
-        // GD.Print("maxY: " + maxY.ToString());
     
         float randomX = (float)GD.RandRange(minX, maxX);
         float randomY = (float)GD.RandRange(minY, maxY);
         
         Vector2 randomPosition = new Vector2(randomX, randomY);
         return randomPosition;
+    }
+
+    public List<baby_chick> GetNearbyChicks()
+    {
+        List<baby_chick> nearbyChicks = new List<baby_chick>();
+        foreach (Node2D chick in GetTree().GetNodesInGroup("Chicks"))
+        {
+            if (chick != this)
+            {
+                float distance = GlobalPosition.DistanceTo(chick.GlobalPosition);
+                if (distance <= PlayAttractRange)
+                {
+                    nearbyChicks.Add(chick as baby_chick);
+                }
+            }
+        }
+        return nearbyChicks;
+    }
+
+    public void StartPlayCooldown()
+    {
+        CanPlay = false;
+        playCooldownTimer = 0f;
     }
 
     /// <summary>

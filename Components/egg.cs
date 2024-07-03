@@ -49,6 +49,7 @@ public partial class egg : AnimatedSprite2D
     {
         // Spawn another gameobject
         Node2D chickInstance = chickScene.Instantiate() as Node2D;
+        chickInstance.AddToGroup("Chicks");
         GetParent().AddChild(chickInstance);
         chickInstance.Position = Position; 
         chickInstance.Scale = new Vector2(3,3);

@@ -16,32 +16,36 @@ public class PlayingState : ChickenBase
     private baby_chick playmate;
 
     // For boids related
+    private Vector2 playDirection;
 
     public PlayingState(baby_chick chick) : base(chick) { }
 
     public override void Enter()
     {
+        playDirection = (chick.GetRandomPosition() - chick.GlobalPosition).Normalized(); 
         // Set playing animation or sprite
         PlayDuration =  (float)GD.RandRange(playmate.PlayDuration.X, playmate.PlayDuration.Y);
         playTime = 0f;
         playmate = FindNearestChick();
+
+        chick.Velocity = playDirection * chick.PlaySpeed;
     }
 
     public override void Execute(float delta)
     {
         playTime += delta;
-        if (playmate != null)
-        {
-            // Implement chasing logic here
-            Vector2 direction = (playmate.GlobalPosition - chick.GlobalPosition).Normalized();
-            chick.GlobalPosition += direction * 50f * delta;
-        }
 
-        if (playTime >= PlayDuration)
-        {
-            chick.DecreaseBoredom(chick.BoredomThreshold);
-            chick.ChangeState(ChickenStates.Thinking);
-        }
+        Vector2 seperation = CalculateSeperation();
+        Vector2 alignment = CalculateAlignment();
+        Vector2 cohesion = CalculateCohesion();
+
+        Vector2 acceleration = seperation * chick.AvoidanceFactor
+                                + alignment * chick.AlignmentFactor
+                                + cohesion * chick.CohesionFactor;
+
+        chick.Velocity += acceleration * delta;
+        // chick.Velocity = chick.Velocity.Clamp(chick.PlaySpeed);
+
     }
 
     public override void Exit() { }
@@ -50,5 +54,23 @@ public class PlayingState : ChickenBase
     {
         // Implement logic to find the nearest chick
         return null; // Placeholder
+    }
+
+    private Vector2 CalculateSeperation()
+    {
+        // Implement logic to calculate separation
+        return Vector2.Zero; // Placeholder
+    }
+
+    private Vector2 CalculateAlignment()
+    {
+        // Implement logic to calculate alignment
+        return Vector2.Zero; // Placeholder
+    }
+
+    private Vector2 CalculateCohesion()
+    {
+        // Implement logic to calculate cohesion
+        return Vector2.Zero; // Placeholder
     }
 }
