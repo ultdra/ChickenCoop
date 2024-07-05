@@ -29,3 +29,91 @@ scale = Vector2(3, 3)
 [node name="Egg5" parent="." instance=ExtResource("2_ho7yf")]
 position = Vector2(265, 875)
 scale = Vector2(3, 3)
+
+[node name="Egg6" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(410, 536)
+scale = Vector2(3, 3)
+
+[node name="Egg7" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1177, 201)
+scale = Vector2(3, 3)
+
+[node name="Egg8" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1362, 637)
+scale = Vector2(3, 3)
+
+[node name="Egg9" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1010, 911)
+scale = Vector2(3, 3)
+
+[node name="Egg10" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(734, 265)
+scale = Vector2(3, 3)
+
+[node name="Egg11" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1263, 544)
+scale = Vector2(3, 3)
+
+[node name="Egg12" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1581, 498)
+scale = Vector2(3, 3)
+
+[node name="Egg13" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(555, 231)
+scale = Vector2(3, 3)
+
+[node name="Egg14" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1046, 722)
+scale = Vector2(3, 3)
+
+[node name="Egg15" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(590, 949)
+scale = Vector2(3, 3)
+
+[node name="Egg21" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(174, 765)
+scale = Vector2(3, 3)
+
+[node name="Egg22" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(517, 768)
+scale = Vector2(3, 3)
+
+[node name="Egg23" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(427, 398)
+scale = Vector2(3, 3)
+
+[node name="Egg24" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(745, 352)
+scale = Vector2(3, 3)
+
+[node name="Egg25" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(947, 166)
+scale = Vector2(3, 3)
+
+[node name="Egg26" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(210, 576)
+scale = Vector2(3, 3)
+
+[node name="Egg27" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(191, 337)
+scale = Vector2(3, 3)
+
+[node name="Egg16" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(735, 610)
+scale = Vector2(3, 3)
+
+[node name="Egg17" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1502, 275)
+scale = Vector2(3, 3)
+
+[node name="Egg18" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1687, 711)
+scale = Vector2(3, 3)
+
+[node name="Egg19" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1335, 985)
+scale = Vector2(3, 3)
+
+[node name="Egg20" parent="." instance=ExtResource("2_ho7yf")]
+position = Vector2(1059, 339)
+scale = Vector2(3, 3)

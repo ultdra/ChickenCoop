@@ -22,6 +22,9 @@ public class ThinkingState : ChickenBase
             return;
         }
 
+        chick.ChangeState(ChickenStates.Playing);
+        return;
+
         if (GD.Randf() < chick.RelaxChance) // 30% chance to relax
         {
             chick.ChangeState(ChickenStates.Relaxing);

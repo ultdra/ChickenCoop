@@ -69,6 +69,8 @@ public partial class baby_chick : CharacterBody2D
     public float AlignmentFactor { get; set; } = 70f;
     [Export] 
     public float CohesionFactor { get; set; } = 60f;
+    [Export]
+    public float SeparationDistance { get; set; } = 50f;
 
 
     // Behaviour related
@@ -91,6 +93,8 @@ public partial class baby_chick : CharacterBody2D
     // State timers
     private float stateTimer = 0;
     public ChickenStates CurrentChickState => currentChickenState;
+
+    public static Vector2 MousePosition { get; set; }
 
     // Debug labels
     private Label nameLabel;
@@ -125,6 +129,7 @@ public partial class baby_chick : CharacterBody2D
 
     public override void _Process(double delta)
     {
+        MousePosition = GetGlobalMousePosition();
         if(!CanPlay)
         {
             playCooldownTimer += (float)delta;
@@ -237,6 +242,48 @@ public partial class baby_chick : CharacterBody2D
         }
         return nearbyChicks;
     }
+
+    public List<baby_chick> GetFurthestChicks()
+    {
+        List<baby_chick> furthestChicks = new List<baby_chick>();
+
+        foreach (Node2D chick in GetTree().GetNodesInGroup("Chicks"))
+        {
+            if (chick != this)
+            {
+                float distance = GlobalPosition.DistanceTo(chick.GlobalPosition);
+                if (distance >= PlayAttractRange)
+                {
+                    furthestChicks.Add(chick as baby_chick);
+                }
+            }
+        }
+
+        return furthestChicks;
+    }
+
+    public baby_chick GetNearestChick()
+    {
+        baby_chick nearestChick = null;
+        float nearestDistance = float.MaxValue;
+
+        foreach (Node2D chick in GetTree().GetNodesInGroup("Chicks"))
+        {
+            if (chick != this)
+            {
+                float distance = GlobalPosition.DistanceTo(chick.GlobalPosition);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestChick = chick as baby_chick;
+                }
+            }
+        }
+
+        return nearestChick;
+    }
+
+
 
     public void StartPlayCooldown()
     {

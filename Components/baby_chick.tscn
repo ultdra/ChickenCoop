@@ -405,11 +405,15 @@ script = ExtResource("1_806r7")
 HungerDecayRate = 1.0
 BoredomDecayRate = 0.5
 FatigueDecayRate = 0.5
-HungerDecreaseAmount = 4.0
 FatigueThreshold = 50.0
 HungerThreshold = 50.0
 BoredomThreshold = 80.0
 RelaxChance = 0.15
+HungerDecreaseAmount = 4.0
+PlaySpeed = 150.0
+AvoidanceFactor = 10.0
+AlignmentFactor = 10.0
+CohesionFactor = 5.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ivm1f")
@@ -421,6 +425,7 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_vaubt")
 
 [node name="NameLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -436,6 +441,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StateLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -450,6 +456,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HungerLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -465,6 +472,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BoredomLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -480,6 +488,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FatigueLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
