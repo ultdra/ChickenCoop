@@ -71,6 +71,8 @@ public partial class baby_chick : CharacterBody2D
     public float CohesionFactor { get; set; } = 60f;
     [Export]
     public float SeparationDistance { get; set; } = 50f;
+    [Export]
+    public float SteeringFactor { get; set; } = 0.5f;
 
 
     // Behaviour related

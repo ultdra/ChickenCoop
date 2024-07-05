@@ -39,11 +39,13 @@ public class PlayingState : ChickenBase
         playTime = 0f;
         playmates = chick.GetNearbyChicks();
 
+        chick.ChangeAnimation("Walking");
+
     }
 
     public override void Execute(float delta)
     {
-        chick.Velocity = SeekTarget(baby_chick.MousePosition);
+        chick.Velocity = SeekTarget(baby_chick.MousePosition) * chick.SteeringFactor;
 
         playTime += delta;
 
@@ -62,6 +64,15 @@ public class PlayingState : ChickenBase
 
         chick.MoveAndSlide();
 
+        if(chick.Velocity.X > 0)
+        {
+            chick.FlipAnimationDirection(false);
+
+        }
+        else if(chick.Velocity.X < 0)
+        {
+            chick.FlipAnimationDirection(true);
+        }
 
         // TryToMotivateOthers();
 
