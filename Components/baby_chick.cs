@@ -176,8 +176,8 @@ public partial class baby_chick : CharacterBody2D
 #region Public state and stats manipulators
     public void ChangeState(BabyChickenStates newState)
     {        
-        GD.Print("Exiting state: " + currentChickenState.ToString());
-        GD.Print("Entering state: " + newState.ToString());
+        // GD.Print("Exiting state: " + currentChickenState.ToString());
+        // GD.Print("Entering state: " + newState.ToString());
         states[currentChickenState].Exit();
         currentChickenState = newState;
         states[currentChickenState].Enter();

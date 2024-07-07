@@ -155,6 +155,34 @@ region = Rect2(80, 64, 16, 16)
 atlas = ExtResource("1_s8ph8")
 region = Rect2(96, 64, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7g5wi"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omfko"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uhan"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlk64"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh2ex"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8gg0"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sot8l"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(96, 16, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_twlv5"]
 atlas = ExtResource("1_s8ph8")
 region = Rect2(0, 32, 16, 16)
@@ -202,34 +230,6 @@ region = Rect2(32, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ndge"]
 atlas = ExtResource("1_s8ph8")
 region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7g5wi"]
-atlas = ExtResource("1_s8ph8")
-region = Rect2(0, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_omfko"]
-atlas = ExtResource("1_s8ph8")
-region = Rect2(16, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0uhan"]
-atlas = ExtResource("1_s8ph8")
-region = Rect2(32, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dlk64"]
-atlas = ExtResource("1_s8ph8")
-region = Rect2(48, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bh2ex"]
-atlas = ExtResource("1_s8ph8")
-region = Rect2(64, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c8gg0"]
-atlas = ExtResource("1_s8ph8")
-region = Rect2(80, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sot8l"]
-atlas = ExtResource("1_s8ph8")
-region = Rect2(96, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ivm1f"]
 animations = [{
@@ -391,6 +391,32 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_7g5wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omfko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0uhan")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlk64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh2ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8gg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sot8l")
+}],
+"loop": true,
+"name": &"Thinking",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_twlv5")
 }, {
 "duration": 1.0,
@@ -432,34 +458,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_0ndge")
 }],
 "loop": true,
-"name": &"Wandering1",
+"name": &"Wandering",
 "speed": 2.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7g5wi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_omfko")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0uhan")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dlk64")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bh2ex")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c8gg0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sot8l")
-}],
-"loop": true,
-"name": &"Wandering2",
-"speed": 3.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vaubt"]
@@ -474,30 +474,31 @@ HungerDecayRate = 1.0
 BoredomDecayRate = 0.5
 FatigueDecayRate = 0.5
 FatigueThreshold = 75.0
-HungerThreshold = 50.0
-BoredomThreshold = 80.0
+HungerThreshold = 55.0
+BoredomThreshold = 5.0
 RelaxChance = 0.15
 TotalStatsBeforeEvolving = 150
-GrazingDuration = Vector2(2, 2)
+GrazingDuration = Vector2(5, 10)
 HungerDecreaseAmount = 4.0
 BoredomDecreaseAmount = 100.0
 PlaySpeed = 125.0
+RelaxDuration = Vector2(5, 10)
+RelaxFatigueDecreaseAmount = 20.0
 AvoidanceFactor = 5.0
 AlignmentFactor = 7.0
 CohesionFactor = 2.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ivm1f")
-animation = &"Evolve"
-autoplay = "Wandering1"
-frame = 8
-frame_progress = 1.0
+animation = &"Wandering"
+autoplay = "Wandering"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_vaubt")
 
 [node name="NameLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -513,6 +514,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StateLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -527,6 +529,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HungerLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -542,6 +545,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BoredomLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -557,6 +561,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FatigueLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

@@ -11,7 +11,7 @@ public class AdultThinkingState : AdultChickenBase
         thinkingTime = 0f;
         thinkingDuration = (float)GD.RandRange(chicken.ThinkingDuration.X, chicken.ThinkingDuration.Y);
         // Set thinking animation or sprite
-        chicken.ChangeAnimation("Wandering2");
+        chicken.ChangeAnimation("Thinking");
     }
 
     public override void Execute(float delta)

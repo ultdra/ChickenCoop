@@ -73,6 +73,12 @@ public partial class adult_chick : CharacterBody2D
     public override void _Ready()
     {
         animationController = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        
+        nameLabel = GetNode<Label>("NameLabel");
+        stateLabel = GetNode<Label>("StateLabel");
+        hungerLabel = GetNode<Label>("HungerLabel");
+        boredomLabel = GetNode<Label>("BoredomLabel");
+        fatigueLabel = GetNode<Label>("FatigueLabel");
 
         states = new Dictionary<AdultChickenStates, AdultChickenBase>
         {

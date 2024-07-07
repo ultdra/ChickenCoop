@@ -11,7 +11,7 @@ public class BabyThinkingState : BabyChickenBase
         thinkingTime = 0f;
         thinkingDuration = (float)GD.RandRange(chick.ThinkingDuration.X, chick.ThinkingDuration.Y);
         // Set thinking animation or sprite
-        chick.ChangeAnimation("Wandering2");
+        chick.ChangeAnimation("Thinking");
     }
 
     public override void Execute(float delta)
