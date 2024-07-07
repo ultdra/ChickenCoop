@@ -45,6 +45,8 @@ public partial class baby_chick : CharacterBody2D
     public float PlayCooldown { get; set; } = 300f;
     [Export]
     public float PlayAttractRange { get; set; } = 100f;
+    [Export]
+    public float PlayRunToRange {get; set;} = 500f;
 
     [ExportGroup("Fatigue State")]
     [Export] 
@@ -158,7 +160,7 @@ public partial class baby_chick : CharacterBody2D
     }
 
     public void ChangeState(ChickenStates newState)
-    {
+    {        
         // GD.Print("Exiting state: " + currentChickenState.ToString());
         // GD.Print("Entering state: " + newState.ToString());
         states[currentChickenState].Exit();
@@ -229,6 +231,17 @@ public partial class baby_chick : CharacterBody2D
         return randomPosition;
     }
 
+    public List<baby_chick> GetAllChicks()
+    {
+        List<baby_chick> AllChicks = new List<baby_chick>();
+
+        foreach(baby_chick chick in GetTree().GetNodesInGroup("Chicks"))
+        {
+            AllChicks.Add(chick);
+        }
+
+        return AllChicks;
+    }
     public List<baby_chick> GetNearbyChicks()
     {
         List<baby_chick> nearbyChicks = new List<baby_chick>();
@@ -326,6 +339,61 @@ public partial class baby_chick : CharacterBody2D
         // Implement visual changes and behavior switches
     }
 
+    public List<baby_chick> GetMostCrowdedQuadrant()
+    {
+        Rect2 tileMapBounds = GetTileMapBounds();
+
+        int numQuadrantsX = 2; // Only 2 quadrants in X direction
+        int numQuadrantsY = 2; // Only 2 quadrants in Y direction
+
+        int[,] quadrantCounts = new int[numQuadrantsX, numQuadrantsY];
+ 
+        foreach (baby_chick chick in GetTree().GetNodesInGroup("Chicks"))
+        {
+            if (chick != this && chick.CanPlay && !chick.MotivatedPlay) // Only count baby_chicks with MotivatedPlay = false
+            {
+                Vector2 chickPosition = chick.GlobalPosition - tileMapBounds.Position;
+                int quadrantX = (int)(chickPosition.X / (tileMapBounds.Size.X / numQuadrantsX));
+                int quadrantY = (int)(chickPosition.Y / (tileMapBounds.Size.Y / numQuadrantsY));
+
+                if (quadrantX >= 0 && quadrantX < numQuadrantsX && quadrantY >= 0 && quadrantY < numQuadrantsY)
+                {
+                    quadrantCounts[quadrantX, quadrantY]++;
+                }
+            }
+        }
+
+        int maxCount = 0;
+        Vector2 mostCrowdedQuadrant = Vector2.Zero;
+
+        for (int X = 0; X < numQuadrantsX; X++)
+        {
+            for (int Y = 0; Y < numQuadrantsY; Y++)
+            {
+                if (quadrantCounts[X, Y] > maxCount)
+                {
+                    maxCount = quadrantCounts[X, Y];
+                    mostCrowdedQuadrant = new Vector2(X, Y);
+                }
+            }
+        }
+
+        List<baby_chick> chicksInQuadrant = new List<baby_chick>();
+
+        foreach (baby_chick chick in GetTree().GetNodesInGroup("Chicks"))
+        {
+            Vector2 chickPosition = chick.GlobalPosition - tileMapBounds.Position;
+            int quadrantX = (int)(chickPosition.X / (tileMapBounds.Size.X / numQuadrantsX));
+            int quadrantY = (int)(chickPosition.Y / (tileMapBounds.Size.Y / numQuadrantsY));
+
+            if (quadrantX == mostCrowdedQuadrant.X && quadrantY == mostCrowdedQuadrant.Y)
+            {
+                chicksInQuadrant.Add(chick);
+            }
+        }
+
+        return chicksInQuadrant;
+    }
 
 
 }

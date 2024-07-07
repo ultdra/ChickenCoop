@@ -14,7 +14,6 @@ public class PlayingState : ChickenBase
 
     private float playTime = 0f;
     private float PlayDuration;
-    private List<baby_chick> playmates;
 
     // For boids related
     private Vector2 playDirection;
@@ -33,15 +32,13 @@ public class PlayingState : ChickenBase
         // Set playing animation or sprite
         PlayDuration =  (float)GD.RandRange(chick.PlayDuration.X, chick.PlayDuration.Y);
         playTime = 0f;
-        playmates = chick.GetNearbyChicks();
-
         chick.ChangeAnimation("Walking");
 
     }
 
     public override void Execute(float delta)
     {
-        // chick.Velocity = SeekTarget(baby_chick.MousePosition) * chick.SteeringFactor;
+        // chick.Velocity = SeekTarget(chick.GetNearestNotPlayingChick().GlobalPosition) * chick.SteeringFactor;
 
         playTime += delta;
 
@@ -76,8 +73,8 @@ public class PlayingState : ChickenBase
 
         if (playTime >= PlayDuration)
         {
-            // chick.ChangeState(ChickenStates.Thinking);
-            // chick.StartPlayCooldown();
+            chick.ChangeState(ChickenStates.Thinking);
+            chick.StartPlayCooldown();
         }
 
     }
@@ -94,6 +91,7 @@ public class PlayingState : ChickenBase
 
         return steeringForce;
     }
+
     private Vector2 CalculateSeperation()
     {
         Vector2 separate = Vector2.Zero;
@@ -160,17 +158,17 @@ public class PlayingState : ChickenBase
     {
         Vector2 cohesion = Vector2.Zero;
         int count = 0;
-        var furthestChicks = chick.GetFurthestChicks();
-        foreach (var otherChick in furthestChicks)
+        List<baby_chick> allChicks = chick.GetMostCrowdedQuadrant();
+        foreach (baby_chick otherChick in allChicks)
         {
             if(otherChick != chick)
             {
-                float distance = chick.GlobalPosition.DistanceTo(otherChick.GlobalPosition);
-                if (distance > chick.PlayAttractRange)
-                {
+                //float distance = chick.GlobalPosition.DistanceTo(otherChick.GlobalPosition);
+                //if (distance > chick.PlayAttractRange)
+                //{
                     cohesion += otherChick.GlobalPosition;
                     ++count;
-                }
+                //}
             }
         }
 
@@ -185,7 +183,7 @@ public class PlayingState : ChickenBase
 
     private void TryToMotivateOthers()
     {
-        playmates = chick.GetNearbyChicks();
+        List<baby_chick> playmates = chick.GetNearbyChicks();
         foreach (var otherChick in playmates)
         {
             if (otherChick.CanPlay && !(otherChick.CurrentChickState == ChickenStates.Playing))

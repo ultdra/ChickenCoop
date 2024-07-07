@@ -140,7 +140,7 @@ sprite_frames = SubResource("SpriteFrames_4sk3q")
 animation = &"Hatching"
 autoplay = "Incubating"
 script = ExtResource("2_24cab")
-hatchTimeRange = Vector2(1, 3)
+hatchTimeRange = Vector2(5, 10)
 
 [node name="NameLabel" type="Label" parent="."]
 anchors_preset = 5

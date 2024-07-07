@@ -411,7 +411,6 @@ BoredomThreshold = 80.0
 RelaxChance = 0.15
 HungerDecreaseAmount = 4.0
 PlaySpeed = 125.0
-PlayAttractRange = 150.0
 AvoidanceFactor = 5.0
 AlignmentFactor = 7.0
 CohesionFactor = 2.5
@@ -426,7 +425,6 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_vaubt")
 
 [node name="NameLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -442,7 +440,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StateLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -457,7 +454,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HungerLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -473,7 +469,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BoredomLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -489,7 +484,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FatigueLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
