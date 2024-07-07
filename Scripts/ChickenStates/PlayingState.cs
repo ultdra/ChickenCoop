@@ -23,16 +23,12 @@ public class PlayingState : ChickenBase
 
     public override void Enter()
     {
-        // if(chick.GetNearestChick() != null)
-        // {
-        //     playDirection = (chick.GetNearestChick().GlobalPosition - chick.GlobalPosition).Normalized();
-        // }
-        // else
-        // {
-            
-        // }
-        playDirection = (chick.GetRandomPosition() - chick.GlobalPosition).Normalized();
-        chick.Velocity = playDirection * chick.PlaySpeed;
+        if(!chick.MotivatedPlay)
+        {
+            baby_chick targetChick = chick.GetNearestChick();
+            playDirection = (targetChick.GlobalPosition - chick.GlobalPosition).Normalized();        
+            chick.Velocity = playDirection * chick.PlaySpeed * chick.SteeringFactor;
+        }
 
         // Set playing animation or sprite
         PlayDuration =  (float)GD.RandRange(chick.PlayDuration.X, chick.PlayDuration.Y);
@@ -45,7 +41,7 @@ public class PlayingState : ChickenBase
 
     public override void Execute(float delta)
     {
-        chick.Velocity = SeekTarget(baby_chick.MousePosition) * chick.SteeringFactor;
+        // chick.Velocity = SeekTarget(baby_chick.MousePosition) * chick.SteeringFactor;
 
         playTime += delta;
 
@@ -53,14 +49,16 @@ public class PlayingState : ChickenBase
         Vector2 cohesion = CalculateCohesion();
         Vector2 alignment = CalculateAlignment();
 
-
         Vector2 acceleration = separation * chick.AvoidanceFactor  +
                                 alignment * chick.AlignmentFactor +
                                 cohesion * chick.CohesionFactor;
 
         chick.Velocity += acceleration * delta;
-        // chick.Velocity = AvoidBorders(chick.GlobalPosition, chick.Velocity);
 
+        if(chick.Velocity.Length() > chick.PlaySpeed)
+        {
+            chick.Velocity = chick.Velocity.Normalized() * chick.PlaySpeed;
+        }
 
         chick.MoveAndSlide();
 
@@ -74,7 +72,7 @@ public class PlayingState : ChickenBase
             chick.FlipAnimationDirection(true);
         }
 
-        // TryToMotivateOthers();
+        TryToMotivateOthers();
 
         if (playTime >= PlayDuration)
         {
@@ -106,7 +104,7 @@ public class PlayingState : ChickenBase
             if(otherChick != chick)
             {
                 float distance = chick.GlobalPosition.DistanceTo(otherChick.GlobalPosition);
-                if (distance < chick.PlayAttractRange)
+                if (distance < chick.SeparationDistance)
                 {
                     Vector2 diff = chick.GlobalPosition - otherChick.GlobalPosition;
                     diff = diff.Normalized()/distance;
@@ -139,7 +137,7 @@ public class PlayingState : ChickenBase
         foreach (var otherChick in nearbyChicks)
         {
             float distance = chick.GlobalPosition.DistanceTo(otherChick.GlobalPosition);
-            if (distance < chick.PlayAttractRange)
+            if (distance < chick.SeparationDistance)
             {
                 sum += otherChick.Velocity;
                 count++;
@@ -147,7 +145,7 @@ public class PlayingState : ChickenBase
         }
         if (count > 0)
         {
-            sum /= count; // Calculate the average velocity
+            // sum /= count; // Calculate the average velocity
             sum = sum.Normalized() * chick.PlaySpeed; // Set the magnitude to max speed
             Vector2 steer = sum - chick.Velocity;
             if(steer.Length() > chick.PlaySpeed)
@@ -170,9 +168,7 @@ public class PlayingState : ChickenBase
                 float distance = chick.GlobalPosition.DistanceTo(otherChick.GlobalPosition);
                 if (distance > chick.PlayAttractRange)
                 {
-                    Vector2 diff = otherChick.GlobalPosition - chick.GlobalPosition;
-                    diff = diff.Normalized() * distance;
-                    cohesion += diff;
+                    cohesion += otherChick.GlobalPosition;
                     ++count;
                 }
             }
@@ -180,59 +176,21 @@ public class PlayingState : ChickenBase
 
         if(count > 0)
         {
-            cohesion = cohesion.Normalized() * chick.PlaySpeed;
-            Vector2 steer = cohesion - chick.Velocity;
-            if(steer.Length() > chick.PlaySpeed)
-            {
-                steer = steer.Normalized() * chick.PlaySpeed;
-            }
-            return steer;
+            return SeekTarget(cohesion/count);
         }
         
         // No adjustment needed
         return Vector2.Zero;
     }
 
-    private Vector2 AvoidBorders(Vector2 position, Vector2 velocity)
-    {
-        Rect2 bounds = chick.GetTileMapBounds();
-        Vector2 desiredDirection = velocity.Normalized();
-        float borderDistance = 40.0f; // Distance from border to start avoiding
-        float steeringStrength = 0.5f; // Adjust this to change how sharply the chick turns
-
-        // Check left and right borders
-        if (position.X - bounds.Position.X < borderDistance)
-        {
-            desiredDirection += Vector2.Right * steeringStrength;
-        }
-        else if (bounds.End.X - position.X < borderDistance)
-        {
-            desiredDirection += Vector2.Left * steeringStrength;
-        }
-
-        // Check top and bottom borders
-        if (position.Y - bounds.Position.Y < borderDistance)
-        {
-            desiredDirection += Vector2.Down * steeringStrength;
-        }
-        else if (bounds.End.Y - position.Y < borderDistance)
-        {
-            desiredDirection += Vector2.Up * steeringStrength;
-        }
-
-        desiredDirection = desiredDirection.Normalized();
-        Vector2 steeringForce = (desiredDirection - velocity.Normalized()) * steeringStrength;
-        return velocity + steeringForce;
-    }
-
     private void TryToMotivateOthers()
     {
-        var nearbyChicks = chick.GetNearbyChicks();
-        foreach (var otherChick in nearbyChicks)
+        playmates = chick.GetNearbyChicks();
+        foreach (var otherChick in playmates)
         {
             if (otherChick.CanPlay && !(otherChick.CurrentChickState == ChickenStates.Playing))
             {
-                otherChick.ChangeState(ChickenStates.Playing);
+                otherChick.MotivatedToPlay();
             }
         }
     }

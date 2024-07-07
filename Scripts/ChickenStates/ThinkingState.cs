@@ -6,6 +6,8 @@ public class ThinkingState : ChickenBase
     private float thinkingDuration = 0f;
     public ThinkingState(baby_chick chick) : base(chick) { }
 
+    private static bool setPlaying = false;
+
     public override void Enter()
     {
         thinkingTime = 0f;
@@ -22,8 +24,14 @@ public class ThinkingState : ChickenBase
             return;
         }
 
-        chick.ChangeState(ChickenStates.Playing);
-        return;
+        if(!ThinkingState.setPlaying)
+        {
+            setPlaying = true;
+            chick.ChangeState(ChickenStates.Playing);
+            return;
+        }
+
+
 
         if (GD.Randf() < chick.RelaxChance) // 30% chance to relax
         {

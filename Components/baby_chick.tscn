@@ -410,10 +410,11 @@ HungerThreshold = 50.0
 BoredomThreshold = 80.0
 RelaxChance = 0.15
 HungerDecreaseAmount = 4.0
-PlaySpeed = 150.0
-AvoidanceFactor = 10.0
-AlignmentFactor = 10.0
-CohesionFactor = 5.0
+PlaySpeed = 125.0
+PlayAttractRange = 150.0
+AvoidanceFactor = 5.0
+AlignmentFactor = 7.0
+CohesionFactor = 2.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ivm1f")

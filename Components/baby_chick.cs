@@ -88,6 +88,7 @@ public partial class baby_chick : CharacterBody2D
 
     public bool CanPlay { get; private set; } = true;
     private float playCooldownTimer = 0f;
+    public bool MotivatedPlay {get; private set;} = false;
 
     // For animation
     private AnimatedSprite2D animationController;
@@ -285,10 +286,15 @@ public partial class baby_chick : CharacterBody2D
         return nearestChick;
     }
 
-
+    public void MotivatedToPlay()
+    {
+        MotivatedPlay = true;
+        ChangeState(ChickenStates.Playing);
+    }
 
     public void StartPlayCooldown()
     {
+        MotivatedPlay = false;
         CanPlay = false;
         playCooldownTimer = 0f;
     }
