@@ -21,6 +21,8 @@ public partial class baby_chick : CharacterBody2D
     public float BoredomThreshold { get; set; } = 60f;
     [Export] 
     public float RelaxChance { get; set; } = 0.3f;
+    [Export]
+    public int TotalStatsBeforeEvolving {get; private set; } = 500;
 
     [ExportGroup("Thinking State")]
     [Export]
@@ -81,10 +83,11 @@ public partial class baby_chick : CharacterBody2D
     public float Hunger { get; private set; } = 0f;
     public float Boredom { get; private set; } = 0f;
     public float Fatigue { get; private set; } = 0f;
+    public int TotalStats => stats.TotalStats;
 
     // State Machine
-    private Dictionary<ChickenStates, ChickenBase> states;
-    private ChickenStates currentChickenState = ChickenStates.Thinking;
+    private Dictionary<BabyChickenStates, BabyChickenBase> states;
+    private BabyChickenStates currentChickenState = BabyChickenStates.Thinking;
 
     private ChickenStats stats = new ChickenStats();
 
@@ -97,9 +100,10 @@ public partial class baby_chick : CharacterBody2D
 
     // State timers
     private float stateTimer = 0;
-    public ChickenStates CurrentChickState => currentChickenState;
+    public BabyChickenStates CurrentChickState => currentChickenState;
 
-    public static Vector2 MousePosition { get; set; }
+    // For instantiating the adult chicken
+    PackedScene adultChickenScene;
 
     // Debug labels
     private Label nameLabel;
@@ -111,6 +115,9 @@ public partial class baby_chick : CharacterBody2D
 
     public override void _Ready()
     {
+
+        adultChickenScene = ResourceLoader.Load<PackedScene>("res://Components/adult_chick.tscn");
+
         nameLabel = GetNode<Label>("NameLabel");
         stateLabel = GetNode<Label>("StateLabel");
         hungerLabel = GetNode<Label>("HungerLabel");
@@ -118,23 +125,24 @@ public partial class baby_chick : CharacterBody2D
         fatigueLabel = GetNode<Label>("FatigueLabel");
 
         animationController = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        animationController.Connect("animation_finished", new Callable(this, nameof(GrowToAdult)), 0);
 
-        states = new Dictionary<ChickenStates, ChickenBase>
+        states = new Dictionary<BabyChickenStates, BabyChickenBase>
         {
-            { ChickenStates.Thinking, new ThinkingState(this) },
-            { ChickenStates.Wandering, new WanderingState(this) },
-            { ChickenStates.Grazing, new GrazingState(this) },
-            { ChickenStates.Playing, new PlayingState(this) },
-            { ChickenStates.Relaxing, new RelaxingState(this) },
-            { ChickenStates.Sleeping, new SleepingState(this) }
+            { BabyChickenStates.Thinking, new BabyThinkingState(this) },
+            { BabyChickenStates.Wandering, new BabyWanderingState(this) },
+            { BabyChickenStates.Grazing, new BabyGrazingState(this) },
+            { BabyChickenStates.Playing, new BabyPlayingState(this) },
+            { BabyChickenStates.Relaxing, new BabyRelaxingState(this) },
+            { BabyChickenStates.Sleeping, new BabySleepingState(this) },
+            { BabyChickenStates.Evolving, new BabyEvolvingState(this) },
         };
 
-        ChangeState(ChickenStates.Thinking);
+        ChangeState(BabyChickenStates.Thinking);
     }
 
     public override void _Process(double delta)
     {
-        MousePosition = GetGlobalMousePosition();
         if(!CanPlay)
         {
             playCooldownTimer += (float)delta;
@@ -151,13 +159,13 @@ public partial class baby_chick : CharacterBody2D
 
     private void UpdateFactors(float delta)
     {
-        if(currentChickenState != ChickenStates.Grazing)
+        if(currentChickenState != BabyChickenStates.Grazing)
             Hunger = (float)Math.Min(Hunger + HungerDecayRate * delta, 100f);
 
-        if(currentChickenState != ChickenStates.Playing)
+        if(currentChickenState != BabyChickenStates.Playing)
             Boredom = (float)Math.Min(Boredom + BoredomDecayRate * delta, 100f);
 
-        if(currentChickenState != ChickenStates.Sleeping)
+        if(currentChickenState != BabyChickenStates.Sleeping)
             Fatigue = (float)Math.Min(Fatigue + FatigueDecayRate * delta, 100f);
 
         hungerLabel.Text = $"Hunger: {Hunger.ToString("F0")}";
@@ -165,10 +173,11 @@ public partial class baby_chick : CharacterBody2D
         fatigueLabel.Text = $"Fatigue: {Fatigue.ToString("F0")}";
     }
 
-    public void ChangeState(ChickenStates newState)
+#region Public state and stats manipulators
+    public void ChangeState(BabyChickenStates newState)
     {        
-        // GD.Print("Exiting state: " + currentChickenState.ToString());
-        // GD.Print("Entering state: " + newState.ToString());
+        GD.Print("Exiting state: " + currentChickenState.ToString());
+        GD.Print("Entering state: " + newState.ToString());
         states[currentChickenState].Exit();
         currentChickenState = newState;
         states[currentChickenState].Enter();
@@ -196,6 +205,54 @@ public partial class baby_chick : CharacterBody2D
         animationController.Play();
     }
 
+    public void MotivatedToPlay()
+    {
+        MotivatedPlay = true;
+        ChangeState(BabyChickenStates.Playing);
+    }
+
+    public void StartPlayCooldown()
+    {
+        MotivatedPlay = false;
+        CanPlay = false;
+        playCooldownTimer = 0f;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="lookLeft"> False to look Right, True to look Left </param>
+    public void FlipAnimationDirection(bool LookLeft)
+    {
+        animationController.FlipH = LookLeft;
+    }
+
+    public void IncrementRandomStat()
+    {
+        string[] statTypes = { "strength", "agility", "vitality" };
+        string randomStat = statTypes[GD.Randi() % 3];
+        stats.IncreaseStat(randomStat, 1);
+    }
+
+#endregion
+
+    private void GrowToAdult()
+    {
+        // Implement visual changes and behavior switches
+        // Spawn another gameobject
+        Node2D chickInstance = adultChickenScene.Instantiate() as Node2D;
+        chickInstance.AddToGroup("Chickens");
+        GetParent().AddChild(chickInstance);
+        chickInstance.Position = Position; 
+        chickInstance.Scale = new Vector2(3,3);
+        adult_chick chicken = chickInstance as adult_chick;
+        chicken.InheritBabyChickStats(stats);
+        // Destroy this gameobject
+        QueueFree();
+    }
+
+
+#region Public Getters for positions
     public Rect2 GetTileMapBounds()
     {
         TileMap tileMap = GetNode<TileMap>("../Level");
@@ -305,47 +362,7 @@ public partial class baby_chick : CharacterBody2D
         return nearestChick;
     }
 
-    public void MotivatedToPlay()
-    {
-        MotivatedPlay = true;
-        ChangeState(ChickenStates.Playing);
-    }
-
-    public void StartPlayCooldown()
-    {
-        MotivatedPlay = false;
-        CanPlay = false;
-        playCooldownTimer = 0f;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="lookLeft"> False to look Right, True to look Left </param>
-    public void FlipAnimationDirection(bool LookLeft)
-    {
-        animationController.FlipH = LookLeft;
-    }
-
-    public void IncrementRandomStat()
-    {
-        string[] statTypes = { "strength", "agility", "vitality" };
-        string randomStat = statTypes[GD.Randi() % 3];
-        stats.IncreaseStat(randomStat, 1);
-
-        if (stats.TotalStats >= ChickenStats.MaxStats)
-        {
-            GrowToAdult();
-        }
-    }
-
-    private void GrowToAdult()
-    {
-        
-        // Implement visual changes and behavior switches
-    }
-
-    public List<baby_chick> GetMostCrowdedQuadrant()
+        public List<baby_chick> GetMostCrowdedQuadrant()
     {
         Rect2 tileMapBounds = GetTileMapBounds();
 
@@ -400,6 +417,6 @@ public partial class baby_chick : CharacterBody2D
 
         return chicksInQuadrant;
     }
-
+#endregion
 
 }

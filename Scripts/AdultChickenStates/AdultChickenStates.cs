@@ -1,10 +1,9 @@
-public enum ChickenStates
+public enum AdultChickenStates
 {
     None = -1,
     Thinking,
     Wandering,
     Grazing,
-    Playing,
     Relaxing,
     Sleeping,
     Mating

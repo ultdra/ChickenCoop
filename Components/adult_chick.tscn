@@ -1,55 +1,54 @@
 [gd_scene load_steps=17 format=3 uid="uid://bxlg2osebr370"]
 
-[ext_resource type="Script" path="res://Components/Archived/bird.cs" id="1_g5hh3"]
-[ext_resource type="Texture2D" uid="uid://c5dxl5mt1do87" path="res://Art/chickens/chicken default.png" id="2_5wum7"]
-
+[ext_resource type="Script" path="res://Components/adult_chick.cs" id="1_0xk8y"]
+[ext_resource type="Texture2D" uid="uid://c5dxl5mt1do87" path="res://Art/chickens/chicken default.png" id="2_xajc0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hfy2u"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rqkrm"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ejkx"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vqkls"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ml66t"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tugkm"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5kfs5"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(32, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qaa77"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(48, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3u2df"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(64, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ftwey"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(80, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_icgtt"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(96, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u2ly4"]
-atlas = ExtResource("2_5wum7")
+atlas = ExtResource("2_xajc0")
 region = Rect2(112, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_egxu7"]
@@ -104,13 +103,13 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_d0u3y"]
 radius = 6.0
 
-[node name="AdultBird" type="CharacterBody2D"]
+[node name="AdultChick" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 31
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967289
-script = ExtResource("1_g5hh3")
+script = ExtResource("1_0xk8y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_egxu7")
@@ -119,3 +118,77 @@ frame_progress = 0.419802
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_d0u3y")
+
+[node name="NameLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = -1.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "Egg"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StateLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_right = 24.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HungerLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 8.0
+offset_right = 24.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BoredomLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 39.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FatigueLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 24.0
+offset_right = 24.0
+offset_bottom = 47.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1

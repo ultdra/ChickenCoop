@@ -9,7 +9,7 @@ using Godot;
 /// Nearby chicks will be attracted to each other and will start playing.
 /// 
 /// </summary>
-public class PlayingState : ChickenBase
+public class BabyPlayingState : BabyChickenBase
 {
 
     private float playTime = 0f;
@@ -18,7 +18,7 @@ public class PlayingState : ChickenBase
     // For boids related
     private Vector2 playDirection;
 
-    public PlayingState(baby_chick chick) : base(chick) { }
+    public BabyPlayingState(baby_chick chick) : base(chick) { }
 
     public override void Enter()
     {
@@ -71,7 +71,7 @@ public class PlayingState : ChickenBase
 
         if (playTime >= PlayDuration)
         {
-            chick.ChangeState(ChickenStates.Thinking);
+            chick.ChangeState(BabyChickenStates.Thinking);
             chick.StartPlayCooldown();
         }
 
@@ -187,7 +187,7 @@ public class PlayingState : ChickenBase
         List<baby_chick> playmates = chick.GetNearbyChicks();
         foreach (var otherChick in playmates)
         {
-            if (otherChick.CanPlay && !(otherChick.CurrentChickState == ChickenStates.Playing))
+            if (otherChick.CanPlay && !(otherChick.CurrentChickState == BabyChickenStates.Playing))
             {
                 otherChick.MotivatedToPlay();
             }

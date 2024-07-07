@@ -1,8 +1,8 @@
-public abstract class ChickenBase
+public abstract class BabyChickenBase
 {
     protected baby_chick chick;
 
-    public ChickenBase(baby_chick chick)
+    public BabyChickenBase(baby_chick chick)
     {
         this.chick = chick;
     }

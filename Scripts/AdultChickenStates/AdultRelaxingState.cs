@@ -1,15 +1,15 @@
-public class RelaxingState : ChickenBase
+public class AdultRelaxingState : AdultChickenBase
 {
     private float relaxTime = 0f;
     private const float RelaxDuration = 8f;
 
-    public RelaxingState(baby_chick chick) : base(chick) { }
+    public AdultRelaxingState(adult_chick chicken) : base(chicken) { }
 
     public override void Enter()
     {
         // Set relaxing animation or sprite
         relaxTime = 0f;
-        chick.ChangeAnimation("Relaxing");
+        chicken.ChangeAnimation("Relaxing");
     }
 
     public override void Execute(float delta)
@@ -17,8 +17,8 @@ public class RelaxingState : ChickenBase
         relaxTime += delta;
         if (relaxTime >= RelaxDuration)
         {
-            chick.DecreaseFatigue(chick.RelaxFatigueDecreaseAmount);
-            chick.ChangeState(ChickenStates.Thinking);
+            chicken.DecreaseFatigue(chicken.RelaxFatigueDecreaseAmount);
+            chicken.ChangeState(AdultChickenStates.Thinking);
         }
     }
 

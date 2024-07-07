@@ -1,7 +1,43 @@
-[gd_scene load_steps=53 format=3 uid="uid://d224us0j6j0cy"]
+[gd_scene load_steps=62 format=3 uid="uid://d224us0j6j0cy"]
 
 [ext_resource type="Script" path="res://Components/baby_chick.cs" id="1_806r7"]
 [ext_resource type="Texture2D" uid="uid://w7a28vmwj7bq" path="res://Art/chickens/Chicken_Baby.png" id="1_s8ph8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgf82"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(0, 240, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dv21s"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(16, 240, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2gft"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(32, 240, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmuqo"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(48, 240, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3o1c"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(64, 240, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgkhg"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(0, 256, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxyb7"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(16, 256, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2o55"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(32, 256, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixfvk"]
+atlas = ExtResource("1_s8ph8")
+region = Rect2(48, 256, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fbtx7"]
 atlas = ExtResource("1_s8ph8")
@@ -197,6 +233,38 @@ region = Rect2(96, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ivm1f"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgf82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dv21s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2gft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmuqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3o1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgkhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxyb7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2o55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixfvk")
+}],
+"loop": false,
+"name": &"Evolve",
+"speed": 9.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fbtx7")
@@ -409,6 +477,8 @@ FatigueThreshold = 75.0
 HungerThreshold = 50.0
 BoredomThreshold = 80.0
 RelaxChance = 0.15
+TotalStatsBeforeEvolving = 150
+GrazingDuration = Vector2(2, 2)
 HungerDecreaseAmount = 4.0
 BoredomDecreaseAmount = 100.0
 PlaySpeed = 125.0
@@ -418,15 +488,16 @@ CohesionFactor = 2.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ivm1f")
-animation = &"Wandering2"
+animation = &"Evolve"
 autoplay = "Wandering1"
+frame = 8
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_vaubt")
 
 [node name="NameLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -442,7 +513,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StateLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -457,7 +527,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HungerLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -473,7 +542,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BoredomLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -489,7 +557,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FatigueLabel" type="Label" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
