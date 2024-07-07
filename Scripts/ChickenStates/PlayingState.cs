@@ -38,8 +38,6 @@ public class PlayingState : ChickenBase
 
     public override void Execute(float delta)
     {
-        // chick.Velocity = SeekTarget(chick.GetNearestNotPlayingChick().GlobalPosition) * chick.SteeringFactor;
-
         playTime += delta;
 
         Vector2 separation = CalculateSeperation();
@@ -79,7 +77,10 @@ public class PlayingState : ChickenBase
 
     }
 
-    public override void Exit() { }
+    public override void Exit() 
+    { 
+        chick.DecreaseBoredom(chick.BoredomDecreaseAmount);
+    }
 
     private Vector2 SeekTarget(Vector2 position)
     {

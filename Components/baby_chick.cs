@@ -151,9 +151,15 @@ public partial class baby_chick : CharacterBody2D
 
     private void UpdateFactors(float delta)
     {
-        Hunger = (float)Math.Min(Hunger + HungerDecayRate * delta, 100f);
-        Boredom = (float)Math.Min(Boredom + BoredomDecayRate * delta, 100f);
-        Fatigue = (float)Math.Min(Fatigue + FatigueDecayRate * delta, 100f);
+        if(currentChickenState != ChickenStates.Grazing)
+            Hunger = (float)Math.Min(Hunger + HungerDecayRate * delta, 100f);
+
+        if(currentChickenState != ChickenStates.Playing)
+            Boredom = (float)Math.Min(Boredom + BoredomDecayRate * delta, 100f);
+
+        if(currentChickenState != ChickenStates.Sleeping)
+            Fatigue = (float)Math.Min(Fatigue + FatigueDecayRate * delta, 100f);
+
         hungerLabel.Text = $"Hunger: {Hunger.ToString("F0")}";
         boredomLabel.Text = $"Boredom: {Boredom.ToString("F0")}";
         fatigueLabel.Text = $"Fatigue: {Fatigue.ToString("F0")}";
