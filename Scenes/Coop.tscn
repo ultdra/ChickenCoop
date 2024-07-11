@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b42maf10bbbs8"]
+[gd_scene load_steps=4 format=3 uid="uid://b42maf10bbbs8"]
 
 [ext_resource type="PackedScene" uid="uid://d1lj8vbo5tt5v" path="res://Components/level.tscn" id="1_5v3yv"]
 [ext_resource type="PackedScene" uid="uid://djhuv7vohsacr" path="res://Components/egg.tscn" id="2_ho7yf"]
+[ext_resource type="PackedScene" uid="uid://ba1ruetpllf0y" path="res://Components/UI/ItemBoxGUI.tscn" id="3_wqmwo"]
 
 [node name="Coop" type="Node2D"]
 
@@ -11,149 +12,24 @@ position = Vector2(962, 547)
 [node name="Level" parent="." instance=ExtResource("1_5v3yv")]
 
 [node name="Egg" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(730, 563)
+position = Vector2(964, 542)
 scale = Vector2(3, 3)
 
-[node name="Egg2" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1051, 581)
-scale = Vector2(3, 3)
+[node name="GUILayer" type="CanvasLayer" parent="."]
 
-[node name="Egg3" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1377, 401)
-scale = Vector2(3, 3)
+[node name="HBoxContainer" type="HBoxContainer" parent="GUILayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -213.0
+offset_right = 2.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Egg4" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(953, 244)
-scale = Vector2(3, 3)
-
-[node name="Egg5" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(552, 289)
-scale = Vector2(3, 3)
-
-[node name="Egg6" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(402, 549)
-scale = Vector2(3, 3)
-
-[node name="Egg7" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(425, 784)
-scale = Vector2(3, 3)
-
-[node name="Egg8" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(748, 853)
-scale = Vector2(3, 3)
-
-[node name="Egg9" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1233, 874)
-scale = Vector2(3, 3)
-
-[node name="Egg10" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1591, 707)
-scale = Vector2(3, 3)
-
-[node name="Egg11" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1625, 335)
-scale = Vector2(3, 3)
-
-[node name="Egg12" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1352, 144)
-scale = Vector2(3, 3)
-
-[node name="Egg13" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1031, 379)
-scale = Vector2(3, 3)
-
-[node name="Egg14" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(685, 434)
-scale = Vector2(3, 3)
-
-[node name="Egg15" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(272, 311)
-scale = Vector2(3, 3)
-
-[node name="Egg16" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(199, 571)
-scale = Vector2(3, 3)
-
-[node name="Egg17" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(195, 831)
-scale = Vector2(3, 3)
-
-[node name="Egg18" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(282, 952)
-scale = Vector2(3, 3)
-
-[node name="Egg19" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(175, 173)
-scale = Vector2(3, 3)
-
-[node name="Egg20" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(514, 116)
-scale = Vector2(3, 3)
-
-[node name="Egg21" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(730, 141)
-scale = Vector2(3, 3)
-
-[node name="Egg22" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1090, 109)
-scale = Vector2(3, 3)
-
-[node name="Egg23" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1177, 260)
-scale = Vector2(3, 3)
-
-[node name="Egg24" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1061, 860)
-scale = Vector2(3, 3)
-
-[node name="Egg25" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(819, 726)
-scale = Vector2(3, 3)
-
-[node name="Egg26" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(500, 922)
-scale = Vector2(3, 3)
-
-[node name="Egg27" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1535, 844)
-scale = Vector2(3, 3)
-
-[node name="Egg28" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1330, 668)
-scale = Vector2(3, 3)
-
-[node name="Egg29" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1481, 531)
-scale = Vector2(3, 3)
-
-[node name="Egg30" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1581, 196)
-scale = Vector2(3, 3)
-
-[node name="Egg31" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1431, 280)
-scale = Vector2(3, 3)
-
-[node name="Egg32" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1713, 515)
-scale = Vector2(3, 3)
-
-[node name="Egg33" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1230, 494)
-scale = Vector2(3, 3)
-
-[node name="Egg34" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1157, 717)
-scale = Vector2(3, 3)
-
-[node name="Egg35" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1720, 949)
-scale = Vector2(3, 3)
-
-[node name="Egg36" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(1396, 912)
-scale = Vector2(3, 3)
-
-[node name="Egg37" parent="." instance=ExtResource("2_ho7yf")]
-position = Vector2(886, 912)
-scale = Vector2(3, 3)
+[node name="GUIBoxContainer" parent="GUILayer/HBoxContainer" instance=ExtResource("3_wqmwo")]
+layout_mode = 2

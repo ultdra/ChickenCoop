@@ -1,7 +1,8 @@
-[gd_scene load_steps=43 format=3 uid="uid://bxlg2osebr370"]
+[gd_scene load_steps=44 format=3 uid="uid://bxlg2osebr370"]
 
 [ext_resource type="Script" path="res://Components/adult_chick.cs" id="1_0xk8y"]
 [ext_resource type="Texture2D" uid="uid://c5dxl5mt1do87" path="res://Art/chickens/chicken default.png" id="2_xajc0"]
+[ext_resource type="FontFile" uid="uid://mlqce0cskkcr" path="res://Art/Fonts/pixelFont-7-8x14-sproutLands.ttf" id="3_b3nqo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqmed"]
 atlas = ExtResource("2_xajc0")
@@ -338,6 +339,7 @@ offset_right = 24.0
 offset_bottom = -1.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_b3nqo")
 theme_override_font_sizes/font_size = 10
 text = "Egg"
 horizontal_alignment = 1
@@ -352,6 +354,7 @@ offset_right = 24.0
 offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_b3nqo")
 theme_override_font_sizes/font_size = 9
 text = "State"
 horizontal_alignment = 1
@@ -367,6 +370,7 @@ offset_right = 24.0
 offset_bottom = 31.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_b3nqo")
 theme_override_font_sizes/font_size = 9
 text = "State"
 horizontal_alignment = 1
@@ -382,6 +386,7 @@ offset_right = 24.0
 offset_bottom = 39.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_b3nqo")
 theme_override_font_sizes/font_size = 9
 text = "State"
 horizontal_alignment = 1
@@ -397,6 +402,7 @@ offset_right = 24.0
 offset_bottom = 47.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_b3nqo")
 theme_override_font_sizes/font_size = 9
 text = "State"
 horizontal_alignment = 1

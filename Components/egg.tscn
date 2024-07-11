@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://djhuv7vohsacr"]
+[gd_scene load_steps=22 format=3 uid="uid://djhuv7vohsacr"]
 
 [ext_resource type="Texture2D" uid="uid://cv6g2na3yy16j" path="res://Art/chickens/Egg_Spritesheet.png" id="1_cx10e"]
 [ext_resource type="Script" path="res://Components/egg.cs" id="2_24cab"]
+[ext_resource type="FontFile" uid="uid://mlqce0cskkcr" path="res://Art/Fonts/pixelFont-7-8x14-sproutLands.ttf" id="3_32cd7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n464w"]
 atlas = ExtResource("1_cx10e")
@@ -152,6 +153,7 @@ offset_right = 9.0
 offset_bottom = -1.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_32cd7")
 theme_override_font_sizes/font_size = 10
 text = "Egg"
 horizontal_alignment = 1
@@ -166,6 +168,7 @@ offset_right = 9.0
 offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_32cd7")
 theme_override_font_sizes/font_size = 9
 text = "TimeLeft"
 horizontal_alignment = 1

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba1ruetpllf0y"]
+
+[ext_resource type="Texture2D" uid="uid://demybumuxhivg" path="res://Art/UI/buttons/square/Square Buttons 26x26.png" id="1_0lj4b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6kqq"]
+atlas = ExtResource("1_0lj4b")
+region = Rect2(11.0245, 154.919, 26.0802, 28.2423)
+
+[node name="GUIBoxContainer" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_i6kqq")
+expand_mode = 3
+stretch_mode = 5

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c0r2tgvypbqr6"]
+
+[ext_resource type="FontFile" uid="uid://mlqce0cskkcr" path="res://Art/Fonts/pixelFont-7-8x14-sproutLands.ttf" id="1_k3qsa"]
+
+[resource]
+Label/font_sizes/font_size = 36
+Label/fonts/font = ExtResource("1_k3qsa")
