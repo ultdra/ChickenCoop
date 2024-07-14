@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b42maf10bbbs8"]
+[gd_scene load_steps=3 format=3 uid="uid://b42maf10bbbs8"]
 
 [ext_resource type="PackedScene" uid="uid://d1lj8vbo5tt5v" path="res://Components/level.tscn" id="1_5v3yv"]
 [ext_resource type="PackedScene" uid="uid://djhuv7vohsacr" path="res://Components/egg.tscn" id="2_ho7yf"]
-[ext_resource type="PackedScene" uid="uid://ba1ruetpllf0y" path="res://Components/UI/ItemBoxGUI.tscn" id="3_wqmwo"]
 
 [node name="Coop" type="Node2D"]
 
@@ -18,18 +17,17 @@ scale = Vector2(3, 3)
 [node name="GUILayer" type="CanvasLayer" parent="."]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUILayer"]
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = -1
+anchor_left = 0.001
+anchor_top = 0.868
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -213.0
+anchor_bottom = 0.975
+offset_left = 0.0799999
+offset_top = -0.440063
 offset_right = 2.0
-offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-
-[node name="GUIBoxContainer" parent="GUILayer/HBoxContainer" instance=ExtResource("3_wqmwo")]
-layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
