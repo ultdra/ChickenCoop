@@ -16,5 +16,17 @@ position = Vector2(964, 542)
 scale = Vector2(3, 3)
 
 [node name="FoodItem" parent="." instance=ExtResource("3_nbo7o")]
-position = Vector2(794, 546)
+position = Vector2(858, 536)
+scale = Vector2(2.5, 2.5)
+
+[node name="FoodItem2" parent="." instance=ExtResource("3_nbo7o")]
+position = Vector2(962, 459)
+scale = Vector2(2.5, 2.5)
+
+[node name="FoodItem3" parent="." instance=ExtResource("3_nbo7o")]
+position = Vector2(1061, 547)
+scale = Vector2(2.5, 2.5)
+
+[node name="FoodItem4" parent="." instance=ExtResource("3_nbo7o")]
+position = Vector2(956, 638)
 scale = Vector2(2.5, 2.5)

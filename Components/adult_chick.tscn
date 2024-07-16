@@ -314,7 +314,7 @@ radius = 6.0
 
 [node name="AdultChick" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 31
+collision_mask = 47
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967289

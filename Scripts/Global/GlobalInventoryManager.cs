@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class GlobalInventoryManager : Node
 {
@@ -10,6 +11,8 @@ public partial class GlobalInventoryManager : Node
     public event InventoryUpdateDelegate OnInventoryUpdate;
 
     #endregion
+
+    private List<food_item> FoodInventory = new List<food_item>();
 
     private string foodItemPath = "res://Components/food_item.tscn";
     private PackedScene foodItemPackedScene;
@@ -27,9 +30,23 @@ public partial class GlobalInventoryManager : Node
     }
 
 
-    public void AddItem()
+    public void AddItem(food_item foodItem, int amount)
     {
-        EmitSignal("OnInventoryUpdate");
+        for(int i = 0; i < FoodInventory.Count; ++i)
+        {
+            if(FoodInventory[i] != null && FoodInventory[i].ItemName == foodItem.ItemName)
+            {
+                FoodInventory[i].IncreaseFoodCount(amount);
+                EmitSignal("OnInventoryUpdate");
+                break;
+            }
+            else if(FoodInventory[i] == null)
+            {
+                FoodInventory[i] = foodItem;
+                EmitSignal("OnInventoryUpdate");
+                break;
+            }
+        }
     }
 
     public void RemoveItem()
