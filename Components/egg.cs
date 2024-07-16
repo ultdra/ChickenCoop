@@ -21,7 +21,7 @@ public partial class egg : AnimatedSprite2D
         nameLabel = GetNode<Label>("NameLabel");
         debugHatchTimeLabel = GetNode<Label>("HatchTimeLabel");
         hatchTime = (float)GD.RandRange(hatchTimeRange.X, hatchTimeRange.Y);
-        chickScene = ResourceLoader.Load<PackedScene>("res://Components/ChickBehaviour.tscn");
+        chickScene = ResourceLoader.Load<PackedScene>("res://Components/baby_chick.tscn");
         Connect("animation_finished", new Callable(this, nameof(OnHatchFinish)), 0);
     }
 
@@ -53,6 +53,8 @@ public partial class egg : AnimatedSprite2D
         GetParent().AddChild(chickInstance);
         chickInstance.Position = Position; 
         chickInstance.Scale = new Vector2(3,3);
+        ChickBehaviour babyChick = chickInstance as ChickBehaviour;
+        babyChick.InheritBabyChickStats(ChickenGrowthStage.Chick);
         // Destroy this gameobject
         QueueFree();
 

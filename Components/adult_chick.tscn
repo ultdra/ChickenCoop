@@ -1,6 +1,6 @@
 [gd_scene load_steps=44 format=3 uid="uid://bxlg2osebr370"]
 
-[ext_resource type="Script" path="res://Components/adult_chick.cs" id="1_0xk8y"]
+[ext_resource type="Script" path="res://Components/ChickBehaviour.cs" id="1_kiodm"]
 [ext_resource type="Texture2D" uid="uid://c5dxl5mt1do87" path="res://Art/chickens/chicken default.png" id="2_xajc0"]
 [ext_resource type="FontFile" uid="uid://mlqce0cskkcr" path="res://Art/Fonts/pixelFont-7-8x14-sproutLands.ttf" id="3_b3nqo"]
 
@@ -318,7 +318,7 @@ collision_mask = 31
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967289
-script = ExtResource("1_0xk8y")
+script = ExtResource("1_kiodm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_egxu7")

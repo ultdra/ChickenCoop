@@ -16,6 +16,25 @@ public class ThinkingState : ChickenBase
 
     public override void Execute(float delta)
     {
+        if(chick.CurrentGrowthStage == ChickenGrowthStage.Chick)
+        {
+            BabyChickThoughtProcess(delta);
+        }
+        else if(chick.CurrentGrowthStage == ChickenGrowthStage.Chicken)
+        {
+            AdultChickThoughtProcess(delta);
+        }
+
+    }
+
+    public override void Exit() { }
+
+
+    // Different thinking for different chicken growth state
+
+    #region Baby Chick
+    public void BabyChickThoughtProcess(float delta)
+    {
         if (chick.TotalStats >= chick.TotalStatsBeforeEvolving)
         {
             chick.ChangeState(ChickenStates.Evolving);
@@ -78,8 +97,14 @@ public class ThinkingState : ChickenBase
                 chick.ChangeState(ChickenStates.Playing);
             }
         }
-
     }
+    #endregion
 
-    public override void Exit() { }
+
+    #region Adult Chicken
+    public void AdultChickThoughtProcess(float delta)
+    {
+        
+    }
+    #endregion
 }

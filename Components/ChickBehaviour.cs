@@ -97,7 +97,7 @@ public partial class ChickBehaviour : CharacterBody2D
     private ChickenStates currentChickenState = ChickenStates.Thinking;
 
     private ChickenStats stats = new ChickenStats();
-    private ChickenStage currentGrowthStage = ChickenStage.Egg;
+    private ChickenGrowthStage currentGrowthStage = ChickenGrowthStage.Egg;
 
     public bool CanPlay { get; private set; } = true;
     private float playCooldownTimer = 0f;
@@ -111,7 +111,7 @@ public partial class ChickBehaviour : CharacterBody2D
 
     // Acessors
     public ChickenStates CurrentChickState => currentChickenState;
-    public ChickenStage CurrentGrowthState => currentGrowthStage;
+    public ChickenGrowthStage CurrentGrowthStage => currentGrowthStage;
 
     // For instantiating the adult chicken
     PackedScene adultChickenScene;
@@ -246,6 +246,14 @@ public partial class ChickBehaviour : CharacterBody2D
         stats.IncreaseStat(randomStat, 1);
     }
 
+    public void InheritBabyChickStats(ChickenGrowthStage currentGrowth, ChickenStats babystats = null)
+    {
+        if(babystats != null)
+            stats = babystats;
+
+        currentGrowthStage = currentGrowth;
+    }
+
 #endregion
 
     private void GrowToAdult()
@@ -259,6 +267,8 @@ public partial class ChickBehaviour : CharacterBody2D
         chickInstance.Scale = new Vector2(3,3);
         
         // Do something to the adult chicken
+        ChickBehaviour chicken = chickInstance as ChickBehaviour;
+        chicken.InheritBabyChickStats(ChickenGrowthStage.Chicken, stats);
 
         // Destroy this gameobject
         QueueFree();
