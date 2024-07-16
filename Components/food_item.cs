@@ -9,6 +9,8 @@ public partial class food_item : Node2D
 
     private Texture itemTexture;
 
+    private int totalFoodAmount;
+
     // Special effects maybe here. but future problem
 
     
@@ -18,6 +20,16 @@ public partial class food_item : Node2D
         base._Ready();
 
 
+    }
+
+
+    /// <summary>
+    /// This should also return a "Effect" pack for the chick to consume and take effect
+    /// </summary>
+    /// <param name="amount"> The amount of food the chick has eaten</param>
+    public void ConsumeFood(int amount)
+    {
+        totalFoodAmount -= amount;
     }
 
 

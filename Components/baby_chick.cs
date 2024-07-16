@@ -36,6 +36,13 @@ public partial class baby_chick : CharacterBody2D
     [Export] 
     public int GrazeStatIncreaseAmount { get; set; } = 1;
 
+    [ExportGroup("Feeding State")]
+    [Export]
+    public Vector2 FeedingDuration { get; set; } = new Vector2(15f, 30f);
+    [Export]
+    public int FeedEatenAmount { get; set; } = 5;
+
+
     [ExportGroup("Play State")]
     [Export] 
     public Vector2 PlayDuration { get; set; } = new Vector2(15f, 30f);
@@ -135,6 +142,7 @@ public partial class baby_chick : CharacterBody2D
             { BabyChickenStates.Playing, new BabyPlayingState(this) },
             { BabyChickenStates.Relaxing, new BabyRelaxingState(this) },
             { BabyChickenStates.Sleeping, new BabySleepingState(this) },
+            { BabyChickenStates.Feeding, new BabySleepingState(this) },
             { BabyChickenStates.Evolving, new BabyEvolvingState(this) },
         };
 
@@ -294,17 +302,21 @@ public partial class baby_chick : CharacterBody2D
         return randomPosition;
     }
 
-    public List<baby_chick> GetAllChicks()
+    public food_item GetNearestFood()
     {
-        List<baby_chick> AllChicks = new List<baby_chick>();
-
-        foreach(baby_chick chick in GetTree().GetNodesInGroup("Chicks"))
+        food_item nearestFood = null;
+        float nearestDistance = float.MaxValue;
+        foreach (food_item food in GetTree().GetNodesInGroup("Food"))
         {
-            AllChicks.Add(chick);
+            float distance = GlobalPosition.DistanceTo(food.GlobalPosition);
+            if (distance <= nearestDistance) 
+            {
+                nearestFood = food;
+            }
         }
-
-        return AllChicks;
+        return nearestFood;
     }
+
     public List<baby_chick> GetNearbyChicks()
     {
         List<baby_chick> nearbyChicks = new List<baby_chick>();

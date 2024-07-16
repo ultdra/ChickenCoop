@@ -6,5 +6,6 @@ public enum AdultChickenStates
     Grazing,
     Relaxing,
     Sleeping,
+    Feeding,
     Mating
 }

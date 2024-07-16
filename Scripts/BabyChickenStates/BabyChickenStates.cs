@@ -7,5 +7,6 @@ public enum BabyChickenStates
     Playing,
     Relaxing,
     Sleeping,
+    Feeding,
     Evolving
 }

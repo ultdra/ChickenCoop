@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_fbw7f"]
 radius = 25.0
 
-[node name="FoodItem" type="Node2D"]
+[node name="FoodItem" type="Node2D" groups=["Food"]]
 script = ExtResource("1_x2d5p")
 
 [node name="Area2D" type="Area2D" parent="."]
