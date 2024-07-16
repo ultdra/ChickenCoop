@@ -1,11 +1,11 @@
 using Godot;
 
-public class BabyWanderingState : BabyChickenBase
+public class WanderingState : ChickenBase
 {
     private Vector2 targetPosition;
     private float wanderTime = 0f;
 
-    public BabyWanderingState(baby_chick chick) : base(chick) { }
+    public WanderingState(ChickBehaviour chick) : base(chick) { }
 
     public override void Enter()
     {
@@ -35,7 +35,7 @@ public class BabyWanderingState : BabyChickenBase
 
         if (chick.GlobalPosition.DistanceTo(targetPosition) < 5f || wanderTime >= wanderDuration)
         {
-            chick.ChangeState(BabyChickenStates.Thinking);
+            chick.ChangeState(ChickenStates.Thinking);
         }
     }
 

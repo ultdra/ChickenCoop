@@ -9,7 +9,7 @@ using Godot;
 /// Nearby chicks will be attracted to each other and will start playing.
 /// 
 /// </summary>
-public class BabyPlayingState : BabyChickenBase
+public class PlayingState : ChickenBase
 {
 
     private float playTime = 0f;
@@ -18,13 +18,13 @@ public class BabyPlayingState : BabyChickenBase
     // For boids related
     private Vector2 playDirection;
 
-    public BabyPlayingState(baby_chick chick) : base(chick) { }
+    public PlayingState(ChickBehaviour chick) : base(chick) { }
 
     public override void Enter()
     {
         if(!chick.MotivatedPlay)
         {
-            baby_chick targetChick = chick.GetNearestChick();
+            ChickBehaviour targetChick = chick.GetNearestChick();
             playDirection = (targetChick.GlobalPosition - chick.GlobalPosition).Normalized();        
             chick.Velocity = playDirection * chick.PlaySpeed * chick.SteeringFactor;
         }
@@ -71,7 +71,7 @@ public class BabyPlayingState : BabyChickenBase
 
         if (playTime >= PlayDuration)
         {
-            chick.ChangeState(BabyChickenStates.Thinking);
+            chick.ChangeState(ChickenStates.Thinking);
             chick.StartPlayCooldown();
         }
 
@@ -159,8 +159,8 @@ public class BabyPlayingState : BabyChickenBase
     {
         Vector2 cohesion = Vector2.Zero;
         int count = 0;
-        List<baby_chick> allChicks = chick.GetMostCrowdedQuadrant();
-        foreach (baby_chick otherChick in allChicks)
+        List<ChickBehaviour> allChicks = chick.GetMostCrowdedQuadrant();
+        foreach (ChickBehaviour otherChick in allChicks)
         {
             if(otherChick != chick)
             {
@@ -184,10 +184,10 @@ public class BabyPlayingState : BabyChickenBase
 
     private void TryToMotivateOthers()
     {
-        List<baby_chick> playmates = chick.GetNearbyChicks();
+        List<ChickBehaviour> playmates = chick.GetNearbyChicks();
         foreach (var otherChick in playmates)
         {
-            if (otherChick.CanPlay && !(otherChick.CurrentChickState == BabyChickenStates.Playing))
+            if (otherChick.CanPlay && !(otherChick.CurrentChickState == ChickenStates.Playing))
             {
                 otherChick.MotivatedToPlay();
             }

@@ -1,10 +1,10 @@
 using Godot;
 
-public class BabyThinkingState : BabyChickenBase
+public class ThinkingState : ChickenBase
 {
     private float thinkingTime = 0f;
     private float thinkingDuration = 0f;
-    public BabyThinkingState(baby_chick chick) : base(chick) { }
+    public ThinkingState(ChickBehaviour chick) : base(chick) { }
 
     public override void Enter()
     {
@@ -18,7 +18,7 @@ public class BabyThinkingState : BabyChickenBase
     {
         if (chick.TotalStats >= chick.TotalStatsBeforeEvolving)
         {
-            chick.ChangeState(BabyChickenStates.Evolving);
+            chick.ChangeState(ChickenStates.Evolving);
             return;
         }
 
@@ -30,7 +30,7 @@ public class BabyThinkingState : BabyChickenBase
 
         if (GD.Randf() < chick.RelaxChance) // 30% chance to relax
         {
-            chick.ChangeState(BabyChickenStates.Relaxing);
+            chick.ChangeState(ChickenStates.Relaxing);
             return;
         }
 
@@ -52,7 +52,7 @@ public class BabyThinkingState : BabyChickenBase
 
         if(totalWeight == 0)
         {
-            chick.ChangeState(BabyChickenStates.Wandering);
+            chick.ChangeState(ChickenStates.Wandering);
         }
         else
         {
@@ -67,15 +67,15 @@ public class BabyThinkingState : BabyChickenBase
             // -= on the if else to remove the weight from the randomWeight and check on the next state
             if ((randomWeight -= sleepingWeight) <= 0.0f)
             {
-                chick.ChangeState(BabyChickenStates.Sleeping);
+                chick.ChangeState(ChickenStates.Sleeping);
             }
             else if ((randomWeight -= hungerWeight) <= 0.0f)
             {
-                chick.ChangeState(BabyChickenStates.Grazing);
+                chick.ChangeState(ChickenStates.Grazing);
             }
             else if ((randomWeight -= boredomWeight) <= 0.0f)
             {
-                chick.ChangeState(BabyChickenStates.Playing);
+                chick.ChangeState(ChickenStates.Playing);
             }
         }
 

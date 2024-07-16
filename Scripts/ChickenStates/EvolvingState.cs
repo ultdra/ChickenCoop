@@ -1,9 +1,9 @@
 using Godot;
 
-public class BabyEvolvingState : BabyChickenBase
+public class EvolvingState : ChickenBase
 {
 
-    public BabyEvolvingState(baby_chick chick) : base(chick) { }
+    public EvolvingState(ChickBehaviour chick) : base(chick) { }
 
     public override void Enter()
     {

@@ -1,4 +1,4 @@
-public enum BabyChickenStates
+public enum ChickenStates
 {
     None = -1,
     Thinking,
@@ -9,4 +9,12 @@ public enum BabyChickenStates
     Sleeping,
     Feeding,
     Evolving
+}
+
+public enum ChickenGrowthStage
+{
+    None = 1,
+    Egg,
+    Chick,
+    Chicken
 }

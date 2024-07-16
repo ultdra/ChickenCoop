@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class baby_chick : CharacterBody2D
+public partial class ChickBehaviour : CharacterBody2D
 {
     [ExportGroup("Decay Rates")]
     [Export] 
@@ -93,10 +93,11 @@ public partial class baby_chick : CharacterBody2D
     public int TotalStats => stats.TotalStats;
 
     // State Machine
-    private Dictionary<BabyChickenStates, BabyChickenBase> states;
-    private BabyChickenStates currentChickenState = BabyChickenStates.Thinking;
+    private Dictionary<ChickenStates, ChickenBase> states;
+    private ChickenStates currentChickenState = ChickenStates.Thinking;
 
     private ChickenStats stats = new ChickenStats();
+    private ChickenStage currentGrowthStage = ChickenStage.Egg;
 
     public bool CanPlay { get; private set; } = true;
     private float playCooldownTimer = 0f;
@@ -107,7 +108,10 @@ public partial class baby_chick : CharacterBody2D
 
     // State timers
     private float stateTimer = 0;
-    public BabyChickenStates CurrentChickState => currentChickenState;
+
+    // Acessors
+    public ChickenStates CurrentChickState => currentChickenState;
+    public ChickenStage CurrentGrowthState => currentGrowthStage;
 
     // For instantiating the adult chicken
     PackedScene adultChickenScene;
@@ -134,19 +138,19 @@ public partial class baby_chick : CharacterBody2D
         animationController = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         animationController.Connect("animation_finished", new Callable(this, nameof(GrowToAdult)), 0);
 
-        states = new Dictionary<BabyChickenStates, BabyChickenBase>
+        states = new Dictionary<ChickenStates, ChickenBase>
         {
-            { BabyChickenStates.Thinking, new BabyThinkingState(this) },
-            { BabyChickenStates.Wandering, new BabyWanderingState(this) },
-            { BabyChickenStates.Grazing, new BabyGrazingState(this) },
-            { BabyChickenStates.Playing, new BabyPlayingState(this) },
-            { BabyChickenStates.Relaxing, new BabyRelaxingState(this) },
-            { BabyChickenStates.Sleeping, new BabySleepingState(this) },
-            { BabyChickenStates.Feeding, new BabySleepingState(this) },
-            { BabyChickenStates.Evolving, new BabyEvolvingState(this) },
+            { ChickenStates.Thinking, new ThinkingState(this) },
+            { ChickenStates.Wandering, new WanderingState(this) },
+            { ChickenStates.Grazing, new GrazingState(this) },
+            { ChickenStates.Playing, new PlayingState(this) },
+            { ChickenStates.Relaxing, new RelaxingState(this) },
+            { ChickenStates.Sleeping, new SleepingState(this) },
+            { ChickenStates.Feeding, new SleepingState(this) },
+            { ChickenStates.Evolving, new EvolvingState(this) },
         };
 
-        ChangeState(BabyChickenStates.Thinking);
+        ChangeState(ChickenStates.Thinking);
     }
 
     public override void _Process(double delta)
@@ -167,13 +171,13 @@ public partial class baby_chick : CharacterBody2D
 
     private void UpdateFactors(float delta)
     {
-        if(currentChickenState != BabyChickenStates.Grazing)
+        if(currentChickenState != ChickenStates.Grazing)
             Hunger = (float)Math.Min(Hunger + HungerDecayRate * delta, 100f);
 
-        if(currentChickenState != BabyChickenStates.Playing)
+        if(currentChickenState != ChickenStates.Playing)
             Boredom = (float)Math.Min(Boredom + BoredomDecayRate * delta, 100f);
 
-        if(currentChickenState != BabyChickenStates.Sleeping)
+        if(currentChickenState != ChickenStates.Sleeping)
             Fatigue = (float)Math.Min(Fatigue + FatigueDecayRate * delta, 100f);
 
         hungerLabel.Text = $"Hunger: {Hunger.ToString("F0")}";
@@ -182,7 +186,7 @@ public partial class baby_chick : CharacterBody2D
     }
 
 #region Public state and stats manipulators
-    public void ChangeState(BabyChickenStates newState)
+    public void ChangeState(ChickenStates newState)
     {        
         // GD.Print("Exiting state: " + currentChickenState.ToString());
         // GD.Print("Entering state: " + newState.ToString());
@@ -216,7 +220,7 @@ public partial class baby_chick : CharacterBody2D
     public void MotivatedToPlay()
     {
         MotivatedPlay = true;
-        ChangeState(BabyChickenStates.Playing);
+        ChangeState(ChickenStates.Playing);
     }
 
     public void StartPlayCooldown()
@@ -253,8 +257,9 @@ public partial class baby_chick : CharacterBody2D
         GetParent().AddChild(chickInstance);
         chickInstance.Position = Position; 
         chickInstance.Scale = new Vector2(3,3);
-        adult_chick chicken = chickInstance as adult_chick;
-        chicken.InheritBabyChickStats(stats);
+        
+        // Do something to the adult chicken
+
         // Destroy this gameobject
         QueueFree();
     }
@@ -317,9 +322,9 @@ public partial class baby_chick : CharacterBody2D
         return nearestFood;
     }
 
-    public List<baby_chick> GetNearbyChicks()
+    public List<ChickBehaviour> GetNearbyChicks()
     {
-        List<baby_chick> nearbyChicks = new List<baby_chick>();
+        List<ChickBehaviour> nearbyChicks = new List<ChickBehaviour>();
         foreach (Node2D chick in GetTree().GetNodesInGroup("Chicks"))
         {
             if (chick != this)
@@ -327,16 +332,16 @@ public partial class baby_chick : CharacterBody2D
                 float distance = GlobalPosition.DistanceTo(chick.GlobalPosition);
                 if (distance <= PlayAttractRange)
                 {
-                    nearbyChicks.Add(chick as baby_chick);
+                    nearbyChicks.Add(chick as ChickBehaviour);
                 }
             }
         }
         return nearbyChicks;
     }
 
-    public List<baby_chick> GetFurthestChicks()
+    public List<ChickBehaviour> GetFurthestChicks()
     {
-        List<baby_chick> furthestChicks = new List<baby_chick>();
+        List<ChickBehaviour> furthestChicks = new List<ChickBehaviour>();
 
         foreach (Node2D chick in GetTree().GetNodesInGroup("Chicks"))
         {
@@ -345,7 +350,7 @@ public partial class baby_chick : CharacterBody2D
                 float distance = GlobalPosition.DistanceTo(chick.GlobalPosition);
                 if (distance >= PlayAttractRange)
                 {
-                    furthestChicks.Add(chick as baby_chick);
+                    furthestChicks.Add(chick as ChickBehaviour);
                 }
             }
         }
@@ -353,9 +358,9 @@ public partial class baby_chick : CharacterBody2D
         return furthestChicks;
     }
 
-    public baby_chick GetNearestChick()
+    public ChickBehaviour GetNearestChick()
     {
-        baby_chick nearestChick = null;
+        ChickBehaviour nearestChick = null;
         float nearestDistance = float.MaxValue;
 
         foreach (Node2D chick in GetTree().GetNodesInGroup("Chicks"))
@@ -366,7 +371,7 @@ public partial class baby_chick : CharacterBody2D
                 if (distance < nearestDistance)
                 {
                     nearestDistance = distance;
-                    nearestChick = chick as baby_chick;
+                    nearestChick = chick as ChickBehaviour;
                 }
             }
         }
@@ -374,7 +379,7 @@ public partial class baby_chick : CharacterBody2D
         return nearestChick;
     }
 
-        public List<baby_chick> GetMostCrowdedQuadrant()
+        public List<ChickBehaviour> GetMostCrowdedQuadrant()
     {
         Rect2 tileMapBounds = GetTileMapBounds();
 
@@ -383,7 +388,7 @@ public partial class baby_chick : CharacterBody2D
 
         int[,] quadrantCounts = new int[numQuadrantsX, numQuadrantsY];
  
-        foreach (baby_chick chick in GetTree().GetNodesInGroup("Chicks"))
+        foreach (ChickBehaviour chick in GetTree().GetNodesInGroup("Chicks"))
         {
             if (chick != this && chick.CanPlay && !chick.MotivatedPlay) // Only count baby_chicks with MotivatedPlay = false
             {
@@ -413,9 +418,9 @@ public partial class baby_chick : CharacterBody2D
             }
         }
 
-        List<baby_chick> chicksInQuadrant = new List<baby_chick>();
+        List<ChickBehaviour> chicksInQuadrant = new List<ChickBehaviour>();
 
-        foreach (baby_chick chick in GetTree().GetNodesInGroup("Chicks"))
+        foreach (ChickBehaviour chick in GetTree().GetNodesInGroup("Chicks"))
         {
             Vector2 chickPosition = chick.GlobalPosition - tileMapBounds.Position;
             int quadrantX = (int)(chickPosition.X / (tileMapBounds.Size.X / numQuadrantsX));

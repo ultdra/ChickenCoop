@@ -1,19 +1,19 @@
 using Godot;
 
-public class AdultGrazingState : AdultChickenBase
+public class GrazingState : ChickenBase
 {
     private float grazingTime = 0f;
     private float totalGrazeTime = 0f;
     private float GrazingDuration;
 
-    public AdultGrazingState(adult_chick chicken) : base(chicken) { }
+    public GrazingState(ChickBehaviour chick) : base(chick) { }
 
     public override void Enter()
     {
         // Set grazing animation or sprite
-        GrazingDuration = (float)GD.RandRange(chicken.GrazingDuration.X, chicken.GrazingDuration.Y);
+        GrazingDuration = (float)GD.RandRange(chick.GrazingDuration.X, chick.GrazingDuration.Y);
         grazingTime = 0f;
-        chicken.ChangeAnimation("Grazing");
+        chick.ChangeAnimation("Grazing");
 
     }
 
@@ -24,13 +24,13 @@ public class AdultGrazingState : AdultChickenBase
         if (grazingTime >= 1f)
         {
             grazingTime = 0f;
-            chicken.DecreaseHunger(chicken.HungerDecreaseAmount);
+            chick.DecreaseHunger(chick.HungerDecreaseAmount);
         }
 
         if(totalGrazeTime >= GrazingDuration)
         {
-            chicken.IncrementRandomStat();
-            chicken.ChangeState(AdultChickenStates.Thinking);
+            chick.IncrementRandomStat();
+            chick.ChangeState(ChickenStates.Thinking);
         }
     }
 

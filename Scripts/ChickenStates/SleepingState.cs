@@ -1,11 +1,11 @@
 using Godot;
 
-public class BabySleepingState : BabyChickenBase
+public class SleepingState : ChickenBase
 {
     private float sleepTime = 0f;
     private float SleepDuration;
 
-    public BabySleepingState(baby_chick chick) : base(chick) { }
+    public SleepingState(ChickBehaviour chick) : base(chick) { }
 
     public override void Enter()
     {
@@ -22,7 +22,7 @@ public class BabySleepingState : BabyChickenBase
 
         if (sleepTime >= SleepDuration || chick.Fatigue <= chick.FatigueThreshold)
         {
-            chick.ChangeState(BabyChickenStates.Thinking);
+            chick.ChangeState(ChickenStates.Thinking);
         }
     }
 

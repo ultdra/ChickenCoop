@@ -21,7 +21,7 @@ public partial class egg : AnimatedSprite2D
         nameLabel = GetNode<Label>("NameLabel");
         debugHatchTimeLabel = GetNode<Label>("HatchTimeLabel");
         hatchTime = (float)GD.RandRange(hatchTimeRange.X, hatchTimeRange.Y);
-        chickScene = ResourceLoader.Load<PackedScene>("res://Components/baby_chick.tscn");
+        chickScene = ResourceLoader.Load<PackedScene>("res://Components/ChickBehaviour.tscn");
         Connect("animation_finished", new Callable(this, nameof(OnHatchFinish)), 0);
     }
 
