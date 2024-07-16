@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bv8jpxicr0p2a"]
+
+[ext_resource type="Texture2D" uid="uid://be5tf4iefakqq" path="res://Art/UI Sprites/Icons/VFX/Seed.png" id="1_pd77t"]
+[ext_resource type="Script" path="res://Scripts/VFX/VFX.cs" id="2_ar76j"]
+
+[sub_resource type="Curve" id="Curve_srti6"]
+_data = [Vector2(0, 0.491194), 0.0, 0.0, 0, 0, Vector2(0.331579, 1), 0.0, 0.0, 0, 0, Vector2(0.705263, 0.89011), -1.01074, -1.01074, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_486db"]
+curve = SubResource("Curve_srti6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0y548"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+angle_min = -360.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+angular_velocity_min = -184.95
+angular_velocity_max = 211.39
+gravity = Vector3(0, 0, 0)
+linear_accel_max = 1.0
+damping_min = 1.0
+damping_max = 1.0
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_486db")
+turbulence_enabled = true
+turbulence_noise_scale = 20.0
+
+[node name="GrazingVfx" type="GPUParticles2D"]
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_0y548")
+texture = ExtResource("1_pd77t")
+randomness = 0.5
+script = ExtResource("2_ar76j")

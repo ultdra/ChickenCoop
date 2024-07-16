@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://rw7ilcetwwkw"]
+
+[ext_resource type="Texture2D" uid="uid://bvk54qaok32ux" path="res://Art/UI Sprites/Icons/VFX/Wander.png" id="1_v2xyl"]
+[ext_resource type="Script" path="res://Scripts/VFX/VFX.cs" id="2_1nmjw"]
+
+[sub_resource type="Curve" id="Curve_srti6"]
+_data = [Vector2(0, 0.491194), 0.0, 0.0, 0, 0, Vector2(0.497449, 1), 0.0, 0.0, 0, 0, Vector2(0.709184, 0.930039), -1.01074, -1.01074, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_486db"]
+curve = SubResource("Curve_srti6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0y548"]
+particle_flag_disable_z = true
+direction = Vector3(-0.2, -1, 0)
+spread = 30.0
+initial_velocity_min = 40.0
+initial_velocity_max = 90.0
+gravity = Vector3(0, 0, 0)
+linear_accel_max = 1.0
+damping_min = 1.0
+damping_max = 1.0
+scale_min = 0.3
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_486db")
+turbulence_enabled = true
+turbulence_noise_scale = 20.0
+
+[node name="WanderVfx" type="GPUParticles2D"]
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_0y548")
+texture = ExtResource("1_v2xyl")
+one_shot = true
+randomness = 0.5
+script = ExtResource("2_1nmjw")
